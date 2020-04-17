@@ -70,12 +70,18 @@ public class FXMLStudentsSceneController implements Initializable {
     private CheckBox BoritoCheckBox;
 
     @FXML
-    private DatePicker BeszerzesDatePIcker;
+    private DatePicker BeszerzesiIdoDatePIcker;
     
     
     @FXML
     void ElolvasvaBox() 
     {
+    }
+
+    @FXML
+    void handleUpdateButtonPushed() 
+    {
+
     }
     
     
@@ -114,6 +120,36 @@ public class FXMLStudentsSceneController implements Initializable {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Button pushed");
         alert.setHeaderText("Megnyomtad a Mentés gombot!");
+        alert.setContentText("Minden beviteli mező értékét töröltük..");
+        alert.showAndWait();
+    }
+    
+    @FXML
+    void handleDeleteButtonPushed() 
+    {
+
+    }
+    
+    @FXML
+    void handleEmptyButtonPushed() 
+    {  
+        NewCimTextField.setText(""); 
+        NewKiadoTextField.setText("");
+        NewIDTextField.setText("");
+        NewSzerzoTextField.setText("");
+        NewSulyTextField.setText("");
+        NewMufajTextField.setText("");
+        NewKulcsszavakTextField.setText("");  
+        NewNyelvTextField.setText("");
+        NewOldalSzamTextField.setText("");
+        KiadasiEvTextField.setText("");
+        if(ElolvasvaCheckBox.isSelected())
+        {
+            System.out.println("Elolvasva!");
+        }
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Button pushed");
+        alert.setHeaderText("Megnyomtad a Delete gombot!");
         alert.setContentText("Minden beviteli mező értékét töröltük..");
         alert.showAndWait();
     }
