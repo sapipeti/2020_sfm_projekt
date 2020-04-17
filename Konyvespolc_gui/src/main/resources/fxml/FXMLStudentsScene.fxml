@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" prefHeight="515.0" prefWidth="784.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLStudentsSceneController">
+   <children>
+      <TabPane layoutY="-88.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Könyv hozzáadás">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <CheckBox fx:id="ElolvasvaCheckBox" layoutX="377.0" layoutY="310.0" mnemonicParsing="false" onAction="#ElolvasvaBox" text="Elolvasva" />
+                        <TextField fx:id="NewIDTextField" layoutX="29.0" layoutY="30.0" />
+                        <Label layoutX="15.0" layoutY="14.0" text="ID" />
+                        <Label layoutX="15.0" layoutY="55.0" prefHeight="23.0" prefWidth="51.0" text="Szerzo" />
+                        <Label layoutX="15.0" layoutY="104.0" text="Cim" />
+                        <Label layoutX="15.0" layoutY="257.0" text="Beszerzes ideje" />
+                        <Label layoutX="15.0" layoutY="152.0" text="Kiado" />
+                        <Label layoutX="216.0" layoutY="14.0" text="Mufaj" />
+                        <Label layoutX="216.0" layoutY="199.0" text="Suly" />
+                        <Label layoutX="216.0" layoutY="104.0" text="Nyelv" />
+                        <Label layoutX="216.0" layoutY="58.0" text="Kulcsszavak" />
+                        <Label layoutX="216.0" layoutY="152.0" text="Oldalszam" />
+                        <TextField fx:id="NewSzerzoTextField" layoutX="29.0" layoutY="74.0" />
+                        <TextField fx:id="NewCimTextField" layoutX="29.0" layoutY="121.0" />
+                        <TextField fx:id="NewKiadoTextField" layoutX="30.0" layoutY="169.0" />
+                        <TextField fx:id="NewOldalSzamTextField" layoutX="216.0" layoutY="165.0" />
+                        <TextField fx:id="NewNyelvTextField" layoutX="216.0" layoutY="121.0" />
+                        <TextField fx:id="NewKulcsszavakTextField" layoutX="216.0" layoutY="74.0" />
+                        <TextField fx:id="NewMufajTextField" layoutX="216.0" layoutY="30.0" />
+                        <TextField fx:id="NewSulyTextField" layoutX="216.0" layoutY="215.0" />
+                        <Button layoutX="446.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleSaveButtonPushed" prefHeight="197.0" prefWidth="123.0" text="MENTÉS" />
+                        <CheckBox fx:id="BoritoCheckBox" layoutX="195.0" layoutY="310.0" mnemonicParsing="false" text="Borito" />
+                        <DatePicker fx:id="BeszerzesDatePIcker" layoutX="21.0" layoutY="273.0" />
+                        <Label layoutX="20.0" layoutY="208.0" text="Kiadasi ev" />
+                        <TextField fx:id="KiadasiEvTextField" layoutX="29.0" layoutY="223.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Könyvek">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="150.0" layoutY="141.0" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
