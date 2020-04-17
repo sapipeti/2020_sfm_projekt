@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -66,13 +67,7 @@ public class FXMLStudentsSceneController implements Initializable {
     private TextField NewCimTextField;
 
     @FXML
-    private TextField NewKiadasiEvTextField;
-
-    @FXML
     private TextField NewKiadoTextField;
-
-    @FXML
-    private TextField NewBoritoTextField;
 
     @FXML
     private TextField NewOldalSzamTextField;
@@ -90,12 +85,29 @@ public class FXMLStudentsSceneController implements Initializable {
     private TextField NewSulyTextField;
 
     @FXML
+    private CheckBox ElolvasvaCheckBox;
+
+    @FXML
+    private CheckBox BoritoCheckBox;
+
+    @FXML
+    private DatePicker KiadasiEvDatePIcker;
+    
+    
+    @FXML
+    void ElolvasvaBox() 
+    {
+    }
+    
+    
+    
+    @FXML
     void handleDeleteButtonPushed() 
     {  
         NewCimTextField.setText("none");
-        NewKiadasiEvTextField.setText("none");
+        
         NewKiadoTextField.setText("none");
-        NewBoritoTextField.setText("none");
+        
         NewIDTextField.setText("none");
         NewSzerzoTextField.setText("none");
         NewSulyTextField.setText("none");
@@ -103,7 +115,13 @@ public class FXMLStudentsSceneController implements Initializable {
         NewKulcsszavakTextField.setText("none");  
         NewNyelvTextField.setText("none");
         NewOldalSzamTextField.setText("none");
-                
+        
+
+        if(ElolvasvaCheckBox.isSelected())
+        {
+            System.out.println("Elolvasva!");
+        }
+        
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Button pushed");
         alert.setHeaderText("Megnyomtad a Delete gombot!");
@@ -133,6 +151,8 @@ public class FXMLStudentsSceneController implements Initializable {
     nameLabel.textProperty().bind(model.getStudent().nameProperty());
     creditsLabel.setText(""+model.getStudent().getCredits());
     birthLabel.setText(model.getStudent().getBirthDate().toString());
+    
+    
     }
     
      @FXML
@@ -161,7 +181,7 @@ public class FXMLStudentsSceneController implements Initializable {
     void handleSaveToFileButtonPushed() throws IOException {
         try(FileOutputStream fos = new FileOutputStream("students.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);){
-            oos.writeObject(model.getStudent());
+            oos.writeObject(model.getClass());
         }
 
     }

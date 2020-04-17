@@ -28,10 +28,12 @@ public class MainApp extends Application {
 
         Konyv el = new Konyv("én","az életem",2018,"best","siker","legjobb,legeslegjobb","magyar",31,true,75,2010,true);
         Konyv ma = new Konyv("sápu","értelmetlen",2010,"worst","bukás","senki,kaka","román",1111,false,187,1990,false); 
+        Konyv me = new Konyv("Cseke", "értelmes", 1200, "best", "bukás2", "valaki, anyone", "holland", 10, true, 30, 1300, true);
         try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
 
             aDAO.saveKonyv(el);
             aDAO.saveKonyv(ma);
+            aDAO.saveKonyv(me);
             List<Konyv> konyvList = aDAO.getKonyvs();
             konyvList.forEach(a -> System.out.println(a));
         }

@@ -40,6 +40,7 @@ public class JpaKonyvDAO implements AutoCloseable{
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
 
@@ -52,6 +53,7 @@ public class JpaKonyvDAO implements AutoCloseable{
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
     
@@ -64,6 +66,7 @@ public class JpaKonyvDAO implements AutoCloseable{
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
     
