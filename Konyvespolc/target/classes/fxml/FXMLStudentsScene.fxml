@@ -18,7 +18,32 @@
         <tabs>
           <Tab text="Könyv hozzáadás">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="NewIDTextField" layoutX="29.0" layoutY="30.0" />
+                        <Label layoutX="15.0" layoutY="14.0" text="ID" />
+                        <Label layoutX="15.0" layoutY="55.0" prefHeight="23.0" prefWidth="51.0" text="Szerzo" />
+                        <Label layoutX="15.0" layoutY="104.0" text="Cim" />
+                        <Label layoutX="16.0" layoutY="152.0" text="Kiadasi ev" />
+                        <Label layoutX="18.0" layoutY="199.0" text="Kiado" />
+                        <Label layoutX="216.0" layoutY="14.0" text="Mufaj" />
+                        <Label layoutX="216.0" layoutY="191.0" text="Borito" />
+                        <Label layoutX="216.0" layoutY="232.0" text="Suly" />
+                        <Label layoutX="216.0" layoutY="104.0" text="Nyelv" />
+                        <Label layoutX="216.0" layoutY="58.0" text="Kulcsszavak" />
+                        <Label layoutX="216.0" layoutY="152.0" text="Oldalszam" />
+                        <TextField fx:id="NewSzerzoTextField" layoutX="29.0" layoutY="74.0" />
+                        <TextField fx:id="NewCimTextField" layoutX="29.0" layoutY="121.0" />
+                        <TextField fx:id="NewKiadasiEvTextField" layoutX="29.0" layoutY="169.0" />
+                        <TextField fx:id="NewKiadoTextField" layoutX="29.0" layoutY="215.0" />
+                        <TextField fx:id="NewBoritoTextField" layoutX="216.0" layoutY="207.0" />
+                        <TextField fx:id="NewOldalSzamTextField" layoutX="216.0" layoutY="165.0" />
+                        <TextField fx:id="NewNyelvTextField" layoutX="216.0" layoutY="121.0" />
+                        <TextField fx:id="NewKulcsszavakTextField" layoutX="216.0" layoutY="74.0" />
+                        <TextField fx:id="NewMufajTextField" layoutX="216.0" layoutY="30.0" />
+                        <TextField fx:id="NewSulyTextField" layoutX="216.0" layoutY="250.0" />
+                        <Button layoutX="446.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleDeleteButtonPushed" prefHeight="197.0" prefWidth="123.0" text="DELETE" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Könyvek">

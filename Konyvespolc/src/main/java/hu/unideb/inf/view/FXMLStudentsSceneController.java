@@ -49,6 +49,83 @@ public class FXMLStudentsSceneController implements Initializable {
     private TextField newNameTextField;
     
     
+    
+    
+    //////////////////////////////////////////////////////////////
+    
+    
+    
+    
+    @FXML
+    private TextField NewIDTextField;
+
+    @FXML
+    private TextField NewSzerzoTextField;
+
+    @FXML
+    private TextField NewCimTextField;
+
+    @FXML
+    private TextField NewKiadasiEvTextField;
+
+    @FXML
+    private TextField NewKiadoTextField;
+
+    @FXML
+    private TextField NewBoritoTextField;
+
+    @FXML
+    private TextField NewOldalSzamTextField;
+
+    @FXML
+    private TextField NewNyelvTextField;
+
+    @FXML
+    private TextField NewKulcsszavakTextField;
+
+    @FXML
+    private TextField NewMufajTextField;
+
+    @FXML
+    private TextField NewSulyTextField;
+
+    @FXML
+    void handleDeleteButtonPushed() 
+    {  
+        NewCimTextField.setText("none");
+        NewKiadasiEvTextField.setText("none");
+        NewKiadoTextField.setText("none");
+        NewBoritoTextField.setText("none");
+        NewIDTextField.setText("none");
+        NewSzerzoTextField.setText("none");
+        NewSulyTextField.setText("none");
+        NewMufajTextField.setText("none");
+        NewKulcsszavakTextField.setText("none");  
+        NewNyelvTextField.setText("none");
+        NewOldalSzamTextField.setText("none");
+                
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Button pushed");
+        alert.setHeaderText("Megnyomtad a Delete gombot!");
+        alert.setContentText("Minden beviteli mező értékét töröltük..");
+        alert.showAndWait();
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ///////////////////////////////////////////////////////////////
+    
+    
+    
+    
     @FXML
     void handleLoadButtonPushed() {
     //nameLabel.setText(model.getStudent().getName());

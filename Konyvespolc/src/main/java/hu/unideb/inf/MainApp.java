@@ -19,7 +19,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/FXMLStudentsScene.fxml"));
         Scene scene = new Scene(loader.load());
-        stage.setTitle("Students Register");
+        stage.setTitle("Book Register_2.0");
         stage.setScene(scene);
         
         ((FXMLStudentsSceneController)loader.getController()).setModel(new Model());

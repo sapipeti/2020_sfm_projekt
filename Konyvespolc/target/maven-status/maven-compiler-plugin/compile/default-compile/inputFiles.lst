@@ -1,8 +1,8 @@
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\hu\unideb\inf\MainApp.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\hu\unideb\inf\model\Model.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\hu\unideb\inf\view\FXMLStudentsSceneController.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\net\javaguides\hibernate\util\JpaKonyvDAO.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\hu\unideb\inf\model\Student.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\net\javaguides\hibernate\entity\Konyv.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\net\javaguides\hibernate\App.java
-D:\Asztal\Egyetem\2020\Szoftverfej\Konyvespolc\src\main\java\net\javaguides\hibernate\util\HibernateUtil.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\net\javaguides\hibernate\entity\Konyv.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\hu\unideb\inf\MainApp.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\hu\unideb\inf\model\Model.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\net\javaguides\hibernate\App.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\hu\unideb\inf\model\Student.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\hu\unideb\inf\view\FXMLStudentsSceneController.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\net\javaguides\hibernate\util\JpaKonyvDAO.java
+C:\Users\bence\Desktop\Konyvespolc_gui\src\main\java\net\javaguides\hibernate\util\HibernateUtil.java
