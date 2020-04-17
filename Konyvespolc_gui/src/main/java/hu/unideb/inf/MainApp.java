@@ -20,6 +20,25 @@ public class MainApp extends Application {
         Scene scene = new Scene(loader.load());
         stage.setTitle("Book Register_2.0");
         stage.setScene(scene);
+<<<<<<< HEAD:Konyvespolc_gui/src/main/java/hu/unideb/inf/MainApp.java
+=======
+        
+        ((FXMLStudentsSceneController)loader.getController()).setModel(new Model());
+        
+        List<String> els = new ArrayList<String>();
+
+        Konyv el = new Konyv("én","az életem",2018,"best","siker","legjobb,legeslegjobb","magyar",31,true,75,2010,true);
+        Konyv ma = new Konyv("sápu","értelmetlen",2010,"worst","bukás","senki,kaka","román",1111,false,187,1990,false); 
+        Konyv me = new Konyv("Cseke", "értelmes", 1200, "best", "bukás2", "valaki, anyone", "holland", 10, true, 30, 1300, true);
+        try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+
+            aDAO.saveKonyv(el);
+            aDAO.saveKonyv(ma);
+            aDAO.saveKonyv(me);
+            List<Konyv> konyvList = aDAO.getKonyvs();
+            konyvList.forEach(a -> System.out.println(a));
+        }
+>>>>>>> e088e650f028f662188554c5fa01d3aca344d48c:Konyvespolc/src/main/java/hu/unideb/inf/MainApp.java
         stage.show();
         
     }
