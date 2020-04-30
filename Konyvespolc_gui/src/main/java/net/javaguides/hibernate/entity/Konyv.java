@@ -5,23 +5,29 @@
  */
 package net.javaguides.hibernate.entity;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  *
  * @author Robert
  */
 @Entity
-@Table(name = "konyv")
-public class Konyv {
+
+public class Konyv implements Serializable {
    @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(unique = true) 
+   @Column(unique = true)
    private int ID;
    @Column(unique = false)
    private String szerzo;
@@ -34,7 +40,7 @@ public class Konyv {
    @Column(unique = false)
    private String műfaj;
    @Column(unique = false)
-   private String kulcsszavak;
+   
    private String Nyelv;
    @Column(unique = false)
    private int oldalszám;
@@ -43,18 +49,22 @@ public class Konyv {
    @Column(unique = false)
    private int súly;
    @Column(unique = false)
-   private int beszerzés_idő;
+   private LocalDate beszerzés_idő;
    @Column(unique = false)
    private boolean elolvasva;
-
-    public String getKulcsszavak() {
-        return kulcsszavak;
-    }
-
-    public void setKulcsszavak(String kulcsszavak) {
-        this.kulcsszavak = kulcsszavak;
-    }
- 
+   
+   @OneToMany(cascade = CascadeType.ALL)
+   @JoinColumn(name = "konyv_id")
+   private Set<Kulcsszo> kulcsszavak = new HashSet<>();
+   
+   public void addKulcsszo(Kulcsszo a)
+   {
+       kulcsszavak.add(a);
+   }
+    public Set<Kulcsszo> getKulcsszo(Kulcsszo a)
+  {
+      return kulcsszavak;
+  }
     public int getID() {
         return ID;
     }
@@ -135,11 +145,11 @@ public class Konyv {
         this.súly = súly;
     }
 
-    public int getBeszerzés_idő() {
+    public LocalDate getBeszerzés_idő() {
         return beszerzés_idő;
     }
 
-    public void setBeszerzés_idő(int beszerzés_idő) {
+    public void setBeszerzés_idő(LocalDate beszerzés_idő) {
         this.beszerzés_idő = beszerzés_idő;
     }
 
@@ -151,13 +161,13 @@ public class Konyv {
         this.elolvasva = elolvasva;
     }
 
-    public Konyv(String szerzo, String cím, int kiadás_év, String kiadó, String műfaj, String kulcsszavak, String Nyelv, int oldalszám, boolean borító, int súly, int beszerzés_idő, boolean elolvasva) {
+    public Konyv(String szerzo, String cím, int kiadás_év, String kiadó, String műfaj, String Nyelv, int oldalszám, boolean borító, int súly, LocalDate beszerzés_idő, boolean elolvasva) {
         this.szerzo = szerzo;
         this.cím = cím;
         this.kiadás_év = kiadás_év;
         this.kiadó = kiadó;
         this.műfaj = műfaj;
-        this.kulcsszavak = kulcsszavak;
+    
         this.Nyelv = Nyelv;
         this.oldalszám = oldalszám;
         this.borító = borító;
@@ -166,7 +176,7 @@ public class Konyv {
         this.elolvasva = elolvasva;
     }
    
-   public Konyv(){;}
+   public Konyv(){}
 
     @Override
     public String toString() {
