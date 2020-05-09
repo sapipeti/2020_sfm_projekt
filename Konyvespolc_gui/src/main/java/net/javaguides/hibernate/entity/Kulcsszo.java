@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "akulcs")
-public class Kulcsszo implements Serializable {
+public  class Kulcsszo implements Serializable {
     @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(unique = true)
@@ -33,6 +33,14 @@ public class Kulcsszo implements Serializable {
 
     public void setKulcsszo(String kulcsszo) {
         this.kulcsszo = kulcsszo;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public int getID() {
+        return ID;
     }
 
     public Kulcsszo(String kulcsszo) {

@@ -15,6 +15,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -28,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import net.javaguides.hibernate.entity.Konyv;
 import net.javaguides.hibernate.entity.Kulcsszo;
 import net.javaguides.hibernate.util.JpaKonyvDAO;
@@ -81,41 +84,19 @@ public class FXMLStudentsSceneController implements Initializable {
     private ListView<String> KulcsszavakListView;
     
     @FXML
-    private TableView Tabla;
+    private TableView<Kulcsszo> Tabla;
      
     @FXML
     private ComboBox<String> TablaComboBox;
      
     @FXML
-    private ListView<String> LekerdezesSQLListView1;
+    private HBox SqlHbox;
+     
     @FXML
-    private ListView<String> LekerdezesSQLListView2;
+    private ComboBox<String> OszlopComboBox;
+    
     @FXML
-    private ListView<String> LekerdezesSQLListView3;
-    @FXML
-    private ListView<String> LekerdezesSQLListView4;
-    @FXML
-    private ListView<String> LekerdezesSQLListView5;
-    @FXML
-    private ListView<String> LekerdezesSQLListView6;
-    @FXML
-    private ListView<String> LekerdezesSQLListView7;
-    @FXML
-    private ListView<String> LekerdezesSQLListView8;
-    @FXML
-    private ListView<String> LekerdezesSQLListView9;
-    @FXML
-    private ListView<String> LekerdezesSQLListView10;
-    @FXML
-    private ListView<String> LekerdezesSQLListView11;
-    @FXML
-    private ListView<String> LekerdezesSQLListView12;
-    @FXML
-    private ListView<String> LekerdezesSQLListView13;
-    @FXML
-    private ListView<String> LekerdezesSQLListView14;
-    @FXML
-    private ListView<String> LekerdezesSQLListView15;
+    private ListView<String> OszlopListView;
     
     @FXML
     private TextField SqlQueryTextField;
@@ -124,7 +105,22 @@ public class FXMLStudentsSceneController implements Initializable {
     void ElolvasvaBox() 
     {
     }
-
+       
+    
+        /*TableColumn id = new TableColumn("ID");
+        TableColumn nyelv = new TableColumn("Nyelv");
+        TableColumn beszerz_ido = new TableColumn("Beszerzés_idő");
+        TableColumn borito = new TableColumn("Borító");
+        TableColumn cim = new TableColumn("Cím");
+        TableColumn elolvasva = new TableColumn("Elolvasva");
+        TableColumn kiadasi_ev = new TableColumn("Kiadási_év");
+        TableColumn kiado = new TableColumn("Kiadó");
+        TableColumn mufaj = new TableColumn("Műfaj");
+        TableColumn oldalszam = new TableColumn("Oldalszám");
+        TableColumn szerzo = new TableColumn("Szerző");
+        TableColumn suly = new TableColumn("Súly");
+        TableColumn kulcsszo = new TableColumn("Kulcsszó");*/
+    
     
     @FXML
     void handleSaveButtonPushed() 
@@ -234,6 +230,28 @@ public class FXMLStudentsSceneController implements Initializable {
              KulcsszavakListView.getItems().add( KulcsszavakComboBox.getValue());
             }
     }
+    @FXML
+    void  Oszlop_SelectedIndexChanged() 
+    {   
+         OszlopListView.getItems().clear();
+         
+        List<String> EredmenyFejlec = new ArrayList<String>();
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM "+OszlopComboBox.getValue());
+            }
+            for (String string : EredmenyFejlec) {
+             OszlopListView.getItems().add(string);
+        }
+           
+    }
+    
+   /*public TableColumn <Kulcsszo,Integer> id;
+     public TableColumn <Kulcsszo,String> kulcsszo;
+    
+    ObservableList<Konyv> observableList= FXCollections.observableArrayList();
+    ObservableList<Kulcsszo> observableList2= FXCollections.observableArrayList(
+    new Kulcsszo("Fasztarisznya",13));*/
+        
     
     @FXML
     void  ListButtonPushed() 
@@ -255,24 +273,8 @@ public class FXMLStudentsSceneController implements Initializable {
        try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
             EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM "+tabla);
        }
-        
-        TableColumn id = new TableColumn("ID");
-        id.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        TableColumn nyelv = new TableColumn("Nyelv");
-        TableColumn beszerz_ido = new TableColumn("Beszerzés_idő");
-        TableColumn borito = new TableColumn("Borító");
-        TableColumn cim = new TableColumn("Cím");
-        TableColumn elolvasva = new TableColumn("Elolvasva");
-        TableColumn kiadasi_ev = new TableColumn("Kiadási_év");
-        TableColumn kiado = new TableColumn("Kiadó");
-        TableColumn mufaj = new TableColumn("Műfaj");
-        TableColumn oldalszam = new TableColumn("Oldalszám");
-        TableColumn szerzo = new TableColumn("Szerző");
-        TableColumn suly = new TableColumn("Súly");
-        TableColumn kulcsszo = new TableColumn("Kulcsszó");
-        
 
-        if(EredmenyFejlec.size()==3){
+        /*if(EredmenyFejlec.size()==3){
             Tabla.getColumns().add(id);
             Tabla.getColumns().add(kulcsszo);
         }else if(EredmenyFejlec.size()!=0){
@@ -288,19 +290,23 @@ public class FXMLStudentsSceneController implements Initializable {
             Tabla.getColumns().add(suly);
             Tabla.getColumns().add(elolvasva);
             Tabla.getColumns().add(szerzo);
-        }
+        }*/
 
-        for (Object[] obj : Eredmeny) {
-            //LekerdezesListView.getItems().add(obj[0]+" "+obj[1]);
-            
-            //A TableViewba sort nem lehet hozzáadni csak objektum példányaként.
-            //Nem akarnak megjelenni a táblázatban az értékek.
-            if(EredmenyFejlec.size()!=3){
-            Tabla.getItems().add(new Konyv(obj[0].toString(),obj[1].toString(),Integer.parseInt(obj[2].toString()),obj[3].toString(),obj[4].toString(),obj[5].toString(),Integer.parseInt(obj[6].toString()),(boolean)obj[7],Integer.parseInt(obj[8].toString()),(LocalDate)obj[9],(boolean)obj[10]));
-            }else{
-            Tabla.getItems().add(new Kulcsszo((String)obj[1],(int)obj[0]));    
-            }
-        }
+        
+        Tabla.getItems().add(new Kulcsszo("Fasza",12));  
+        
+//        for (Object[] obj : Eredmeny) {
+//            //LekerdezesListView.getItems().add(obj[0]+" "+obj[1]);
+//            
+//            //A TableViewba sort nem lehet hozzáadni csak objektum példányaként.
+//            //Nem akarnak megjelenni a táblázatban az értékek.
+//            if(EredmenyFejlec.size()!=3){
+//            Tabla.getItems().add(new Konyv(obj[0].toString(),obj[1].toString(),Integer.parseInt(obj[2].toString()),obj[3].toString(),obj[4].toString(),obj[5].toString(),Integer.parseInt(obj[6].toString()),(boolean)obj[7],Integer.parseInt(obj[8].toString()),(LocalDate)obj[9],(boolean)obj[10]));
+//            }else{
+//                 
+//            //Tabla.getItems().add(new Kulcsszo((String)obj[1],(int)obj[0]));    
+//            }
+//        }
     
         
     } 
@@ -316,15 +322,31 @@ public class FXMLStudentsSceneController implements Initializable {
             EredmenyFejlec=aDAO.queryKonyvFejlec(SqlQueryTextField.getText());
        }
        
+       List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
+       SqlHbox.setPrefWidth(125*EredmenyFejlec.size());
        
-       
-       //Nem volt szép megcsinálni mondhatom! De nincs más mód rá...
-        for (Object[] obj : Eredmeny) {
-            if(EredmenyFejlec.size()==1){
-                //LekerdezesSQLListView.getItems().add(obj[0]+"");
+       //Dinamikus számú listview készítés.
+       for (int i = 0; i < EredmenyFejlec.size(); i++) {
+                LekerdezesLista.add(new ListView<String>());
             }
-            
+       
+        for (int i = 0; i < EredmenyFejlec.size(); i++) {
+            LekerdezesLista.get(i).getItems().add(EredmenyFejlec.get(i));
         }
+       
+       if(EredmenyFejlec.size()!=1){
+        for (Object[] obj : Eredmeny) {
+            for (int i = 0; i < LekerdezesLista.size(); i++) {
+                LekerdezesLista.get(i).getItems().add(obj[i].toString());
+            }
+        }
+       }else{
+       LekerdezesLista.get(0).getItems().add(Eredmeny.toString().substring(1, Eredmeny.toString().length()-1));
+       }
+       
+       for (int i = 0; i < LekerdezesLista.size(); i++) {
+                SqlHbox.getChildren().add(LekerdezesLista.get(i));
+            }
     }
     
     /**
@@ -339,10 +361,13 @@ public class FXMLStudentsSceneController implements Initializable {
                                             "Napjaink, bulvár, politika" ,"Nyelvkönyv, szótár" ,"Pénz, gazdaság, üzleti élet" ,"Sport, természetjárás" ,
                                             "Számítástechnika, internet" ,"Tankönyvek, segédkönyvek" ,"Társ. tudományok" ,"Térkép" ,
                                             "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia","Sci-Fi, Fantasy");
-        
-       TablaComboBox.getItems().addAll("Könyv","Kulcs");
-        
-        
+       /*TablaComboBox.getItems().addAll("Könyv","Kulcs");
+       id.setCellValueFactory(new PropertyValueFactory<>("ID"));
+       kulcsszo.setCellValueFactory(new PropertyValueFactory<>("Kulcsszó"));
+       Tabla.setItems(observableList2);*/
+       
+        SqlHbox.setPrefWidth(300);
+        OszlopComboBox.getItems().addAll("Konyv","Akulcs");
     }
 
     

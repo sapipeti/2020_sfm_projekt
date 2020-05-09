@@ -75,6 +75,7 @@ public class JpaKonyvDAO implements AutoCloseable{
         Query query = session.createQuery(hql);
         return query.list();
     }
+    
     public List<String> queryKonyvFejlec(String lekerdezes){
         List<String> lista = new ArrayList<String>();
         try{

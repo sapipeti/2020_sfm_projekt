@@ -7,6 +7,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
@@ -15,6 +16,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -46,17 +48,17 @@
                               <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextField fx:id="NewSzerzoTextField" GridPane.rowIndex="1">
+                              <TextField fx:id="NewSzerzoTextField" promptText="Isaac Asimov" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewCimTextField" GridPane.rowIndex="3">
+                              <TextField fx:id="NewCimTextField" promptText="Alapítvány Trilógia" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewKiadoTextField" GridPane.rowIndex="5">
+                              <TextField fx:id="NewKiadoTextField" promptText="Gabo" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
@@ -66,17 +68,17 @@
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </DatePicker>
-                              <TextField fx:id="NewNyelvTextField" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                              <TextField fx:id="NewNyelvTextField" promptText="Magyar" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewOldalSzamTextField" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <TextField fx:id="NewOldalSzamTextField" promptText="888" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewSulyTextField" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                              <TextField fx:id="NewSulyTextField" promptText="500" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
@@ -121,7 +123,7 @@
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="KiadasiEvTextField" GridPane.rowIndex="7">
+                              <TextField fx:id="KiadasiEvTextField" promptText="2018" GridPane.rowIndex="7">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
@@ -217,18 +219,21 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="LekerdezesSQLListView1" layoutX="129.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="697.0" AnchorPane.topAnchor="78.0" />
-                        <Button layoutX="27.0" layoutY="78.0" mnemonicParsing="false" onAction="#ListSQLButtonPushed" text="Lekérdezés" />
-                        <TextField fx:id="SqlQueryTextField" layoutX="27.0" layoutY="32.0" prefHeight="25.0" prefWidth="300.0" />
-                        <Label layoutX="27.0" layoutY="14.0" text="Adj meg egy SQL utasítást" />
-                        <ListView fx:id="LekerdezesSQLListView2" layoutX="209.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView3" layoutX="287.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView4" layoutX="367.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView5" layoutX="447.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView6" layoutX="527.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView7" layoutX="607.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView8" layoutX="687.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
-                        <ListView fx:id="LekerdezesSQLListView9" layoutX="767.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ScrollPane layoutX="153.0" layoutY="103.0" prefHeight="344.0" prefWidth="700.0">
+                           <content>
+                              <HBox fx:id="SqlHbox" prefHeight="340.0" prefWidth="696.0" />
+                           </content>
+                        </ScrollPane>
+                        <Button layoutX="38.0" layoutY="103.0" mnemonicParsing="false" onAction="#ListSQLButtonPushed" text="Lekérdezés" />
+                        <TextField fx:id="SqlQueryTextField" layoutX="38.0" layoutY="56.0" prefHeight="25.0" prefWidth="300.0" />
+                        <Label layoutX="38.0" layoutY="25.0" text="Adj meg egy SQL utasítást" />
+                        <Pane layoutX="3.0" layoutY="142.0" prefHeight="296.0" prefWidth="141.0" style="-fx-border-color: black;">
+                           <children>
+                              <ComboBox fx:id="OszlopComboBox" layoutX="14.0" layoutY="36.0" onAction="#Oszlop_SelectedIndexChanged" prefHeight="25.0" prefWidth="110.0" />
+                              <ListView fx:id="OszlopListView" layoutX="16.0" layoutY="82.0" prefHeight="200.0" prefWidth="110.0" />
+                              <Label layoutX="4.0" layoutY="6.0" prefHeight="17.0" prefWidth="135.0" text="Oszlopnevek lekérdezése" />
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
               </content>
