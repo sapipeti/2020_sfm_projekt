@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import static java.lang.System.exit;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class FXMLStudentsSceneController implements Initializable {
    
     @FXML
     private TextField NewSzerzoTextField;
-
+    
     @FXML
     private TextField NewCimTextField;
 
@@ -89,6 +90,14 @@ public class FXMLStudentsSceneController implements Initializable {
     @FXML
     void handleSaveButtonPushed() 
     { 
+        if (    NewSzerzoTextField.getText().length() <= 0 ||
+                NewCimTextField.getText().length() <= 0 ||
+                NewKiadoTextField.getText().length() <= 0 ||
+                NewNyelvTextField.getText().length() <= 0)
+             exit(1);
+        else
+        {
+  
         Konyv peldany =new Konyv(NewSzerzoTextField.getText(),NewCimTextField.getText(),Integer.parseInt(KiadasiEvTextField.getText()),
         NewKiadoTextField.getText(),MufajokComboBox.getValue(),NewNyelvTextField.getText(),
         Integer.parseInt(NewOldalSzamTextField.getText()),BoritoCheckBox.isSelected(),Integer.parseInt(NewSulyTextField.getText()),
@@ -137,9 +146,109 @@ public class FXMLStudentsSceneController implements Initializable {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Button pushed");
         alert.setHeaderText("Megnyomtad a Mentés gombot!");
-        alert.setContentText("Minden beviteli mező értékét töröltük..");
+        alert.setContentText("Adatok feltöltése..");
         alert.showAndWait();
     }
+    }
+    
+    
+     @FXML
+    void HandleMouseExitSzerzo() 
+    {
+        if (NewSzerzoTextField.getText().length() <= 0)
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Szerzo Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Szerzo Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szoveget");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void HandleMouseExitCim() 
+    {
+        if (NewCimTextField.getText().length() <= 0)
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Cim Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Cim Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szoveget");
+            alert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    void HandleMouseExitKiado() 
+    {
+        if (NewKiadoTextField.getText().length() <= 0)
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Kiado Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Kiado Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szoveget");
+            alert.showAndWait();
+        }
+
+    }
+
+    @FXML
+    void HandleMouseExitNyelv() throws InterruptedException
+    {
+        if (NewNyelvTextField.getText().length() <= 0)
+        {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Nyelv Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Nyelv Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szoveget");
+            alert.showAndWait();
+        }
+
+    }
+    
+    @FXML
+    void HandleMouseExitKiadasiEv() 
+    {
+        if (Integer.parseInt(KiadasiEvTextField.getText()) <= 0)
+        {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Kiadasi Ev Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Kiadasi Ev Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szamot");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    void HandleMouseExitOldalszam() 
+    {
+        if (Integer.parseInt(NewOldalSzamTextField.getText()) <= 0)
+        {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Kiadasi Oldalszam Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Oldalszam Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szamot");
+            alert.showAndWait();
+            
+        }
+    }
+
+    @FXML
+    void HandleMouseExitSuly() 
+    {
+        if(!NewSulyTextField.getText().contains("[a-z]"))
+        //if (Integer.parseInt(NewSulyTextField.getText()) <= 0)
+        {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Suly Mezo");
+            alert.setHeaderText("Megprobaltad elhagyni a Suly Mezot!");
+            alert.setContentText("Kerlek irj be nemi kamu szamot");
+            alert.showAndWait();
+        }
+    }
+    
+    
     
     
     @FXML
@@ -164,7 +273,7 @@ public class FXMLStudentsSceneController implements Initializable {
         
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Button pushed");
-        alert.setHeaderText("Megnyomtad a Delete gombot!");
+        alert.setHeaderText("Megnyomtad az Empty gombot!");
         alert.setContentText("Minden beviteli mező értékét töröltük..");
         alert.showAndWait();
     }
