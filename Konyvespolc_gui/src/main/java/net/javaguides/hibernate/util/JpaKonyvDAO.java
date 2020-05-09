@@ -90,21 +90,4 @@ public class JpaKonyvDAO implements AutoCloseable{
         }
         return queryResult;
     }
-    
-    public List<Integer> getBiggestID(){
-        List<Integer> ID = new ArrayList<Integer>();
-        try{
-            transaction = session.beginTransaction();
-            Query query = session.createSQLQuery("SELECT max(ID) FROM KONYV");
-            ID = query.list();
-            transaction.commit();
-        }
-        catch(Exception e){
-            e.printStackTrace(); 
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return ID;
-    }
 }

@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 public class Konyv implements Serializable {
    @Id
-   @Column(unique = true)
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private int ID;
    @Column(unique = false)
    private String szerzo;

@@ -44,6 +44,11 @@
                               <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="273.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
+                              <TextField fx:id="NewIDTextField" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="7.0" right="7.0" />
+                                 </GridPane.margin>
+                              </TextField>
                               <TextField fx:id="NewSzerzoTextField" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
@@ -64,6 +69,11 @@
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </DatePicker>
+                              <TextField fx:id="NewMufajTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets left="7.0" right="7.0" />
+                                 </GridPane.margin>
+                              </TextField>
                               <TextField fx:id="NewNyelvTextField" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
@@ -79,6 +89,11 @@
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="332.0" text="ID">
+                                 <font>
+                                    <Font name="Lucida Calligraphy Italic" size="16.0" />
+                                 </font>
+                              </Label>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="386.0" text="Szerzo" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
@@ -181,7 +196,6 @@
                                     <Insets left="170.0" />
                                  </GridPane.margin>
                               </CheckBox>
-                              <ComboBox fx:id="MufajokComboBox" prefHeight="25.0" prefWidth="180.0" promptText="Műfajok" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </children>
@@ -192,7 +206,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="LekerdezesListView" layoutX="395.0" layoutY="87.0" prefHeight="200.0" prefWidth="312.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                        <ListView layoutX="395.0" layoutY="87.0" prefHeight="200.0" prefWidth="312.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
                         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="72.0" mnemonicParsing="false" onAction="#ListButtonPushed" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: green;" text="LIST" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font name="HoloLens MDL2 Assets" size="19.0" />
