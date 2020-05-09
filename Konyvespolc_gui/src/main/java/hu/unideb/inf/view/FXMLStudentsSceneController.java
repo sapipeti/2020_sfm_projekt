@@ -42,8 +42,10 @@ import org.h2.table.Table;
  * @author hallgato
  */
 public class FXMLStudentsSceneController implements Initializable {
-   
-   
+
+    String KonyvOszlop="";
+    String aKulcsOszlop="";
+    
     @FXML
     private TextField NewSzerzoTextField;
 
@@ -82,15 +84,13 @@ public class FXMLStudentsSceneController implements Initializable {
     
     @FXML
     private ListView<String> KulcsszavakListView;
+     
     
     @FXML
-    private TableView<Kulcsszo> Tabla;
-     
-    @FXML
-    private ComboBox<String> TablaComboBox;
-     
-    @FXML
     private HBox SqlHbox;
+    
+    @FXML
+    private HBox ListHbox;
      
     @FXML
     private ComboBox<String> OszlopComboBox;
@@ -105,23 +105,36 @@ public class FXMLStudentsSceneController implements Initializable {
     void ElolvasvaBox() 
     {
     }
+    
+    //Lekerdezes ablak
+    @FXML
+    private ComboBox<String> TablaComboBox;
+    
+    @FXML
+    private ComboBox OszlopSzuresComboBox;
+    
+    @FXML
+    private ComboBox OszlopRendezesComboBox;
+            
+    @FXML
+    private ComboBox RendezesComboBox;
        
+    @FXML
+    private TextField OperatorTextField;
+            
+    @FXML
+    private TextField KapcsolatTextField;       
     
-        /*TableColumn id = new TableColumn("ID");
-        TableColumn nyelv = new TableColumn("Nyelv");
-        TableColumn beszerz_ido = new TableColumn("Beszerzés_idő");
-        TableColumn borito = new TableColumn("Borító");
-        TableColumn cim = new TableColumn("Cím");
-        TableColumn elolvasva = new TableColumn("Elolvasva");
-        TableColumn kiadasi_ev = new TableColumn("Kiadási_év");
-        TableColumn kiado = new TableColumn("Kiadó");
-        TableColumn mufaj = new TableColumn("Műfaj");
-        TableColumn oldalszam = new TableColumn("Oldalszám");
-        TableColumn szerzo = new TableColumn("Szerző");
-        TableColumn suly = new TableColumn("Súly");
-        TableColumn kulcsszo = new TableColumn("Kulcsszó");*/
+    @FXML
+    private TextField ErtekTextField;
     
+    @FXML
+    private ListView<String> SzuresListView;
     
+    @FXML
+    private ListView<String> RendezesListView;
+                            
+
     @FXML
     void handleSaveButtonPushed() 
     { 
@@ -236,80 +249,15 @@ public class FXMLStudentsSceneController implements Initializable {
          OszlopListView.getItems().clear();
          
         List<String> EredmenyFejlec = new ArrayList<String>();
-            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM "+OszlopComboBox.getValue());
-            }
+            EredmenyFejlec=OszlopFormazas(OszlopComboBox.getValue());
             for (String string : EredmenyFejlec) {
              OszlopListView.getItems().add(string);
         }
            
     }
-    
-   /*public TableColumn <Kulcsszo,Integer> id;
-     public TableColumn <Kulcsszo,String> kulcsszo;
-    
-    ObservableList<Konyv> observableList= FXCollections.observableArrayList();
-    ObservableList<Kulcsszo> observableList2= FXCollections.observableArrayList(
-    new Kulcsszo("Fasztarisznya",13));*/
         
     
-    @FXML
-    void  ListButtonPushed() 
-    {
-        String tabla =TablaComboBox.getValue();
-        
-        if(tabla.equals("Könyv")){
-            tabla="konyv";
-        }else{
-            tabla="akulcs";
-        }
-        
-        List<Object[]> Eredmeny = new ArrayList<Object[]>();
-        List<String> EredmenyFejlec = new ArrayList<String>();
-        
-       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            Eredmeny=aDAO.queryKonyv("SELECT * FROM "+tabla);
-       }
-       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM "+tabla);
-       }
-
-        /*if(EredmenyFejlec.size()==3){
-            Tabla.getColumns().add(id);
-            Tabla.getColumns().add(kulcsszo);
-        }else if(EredmenyFejlec.size()!=0){
-            Tabla.getColumns().add(id);
-            Tabla.getColumns().add(nyelv);
-            Tabla.getColumns().add(beszerz_ido);
-            Tabla.getColumns().add(borito);
-            Tabla.getColumns().add(cim);
-            Tabla.getColumns().add(kiadasi_ev);
-            Tabla.getColumns().add(kiado);
-            Tabla.getColumns().add(mufaj);
-            Tabla.getColumns().add(oldalszam);
-            Tabla.getColumns().add(suly);
-            Tabla.getColumns().add(elolvasva);
-            Tabla.getColumns().add(szerzo);
-        }*/
-
-        
-        Tabla.getItems().add(new Kulcsszo("Fasza",12));  
-        
-//        for (Object[] obj : Eredmeny) {
-//            //LekerdezesListView.getItems().add(obj[0]+" "+obj[1]);
-//            
-//            //A TableViewba sort nem lehet hozzáadni csak objektum példányaként.
-//            //Nem akarnak megjelenni a táblázatban az értékek.
-//            if(EredmenyFejlec.size()!=3){
-//            Tabla.getItems().add(new Konyv(obj[0].toString(),obj[1].toString(),Integer.parseInt(obj[2].toString()),obj[3].toString(),obj[4].toString(),obj[5].toString(),Integer.parseInt(obj[6].toString()),(boolean)obj[7],Integer.parseInt(obj[8].toString()),(LocalDate)obj[9],(boolean)obj[10]));
-//            }else{
-//                 
-//            //Tabla.getItems().add(new Kulcsszo((String)obj[1],(int)obj[0]));    
-//            }
-//        }
     
-        
-    } 
     @FXML
     void  ListSQLButtonPushed() 
     {
@@ -323,8 +271,10 @@ public class FXMLStudentsSceneController implements Initializable {
        }
        
        List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
+
        SqlHbox.setPrefWidth(125*EredmenyFejlec.size());
-       
+       SqlHbox.getChildren().clear();
+      
        //Dinamikus számú listview készítés.
        for (int i = 0; i < EredmenyFejlec.size(); i++) {
                 LekerdezesLista.add(new ListView<String>());
@@ -349,6 +299,218 @@ public class FXMLStudentsSceneController implements Initializable {
             }
     }
     
+    //----------Lekerdezes ablak----------//
+    @FXML
+    void  ListButtonPushed() 
+    {
+       String oszlop="";
+       String tabla =TablaComboBox.getValue();
+       String szures="";
+       String rendezes="";
+       
+       List<Object[]> Eredmeny = new ArrayList<Object[]>();
+       List<String> EredmenyFejlec = new ArrayList<String>();
+        
+       if(!SzuresListView.getItems().isEmpty()){
+           szures+="where";
+           for (int i = 0; i < SzuresListView.getItems().size(); i++) {
+               if(SzuresListView.getItems().get(i).toUpperCase().equals("VAGY")||SzuresListView.getItems().get(i).toUpperCase().equals("OR")){
+                   szures+= " OR ";
+               }else if(SzuresListView.getItems().get(i).toUpperCase().equals("ÉS")||SzuresListView.getItems().get(i).toUpperCase().equals("AND")){
+                   szures+= " AND ";
+               }else{
+                   if(SzuresListView.getItems().get(i).startsWith(""))
+                   szures+= " "+SzuresListView.getItems().get(i)+" ";
+               }
+           }
+       }
+       if(!RendezesListView.getItems().isEmpty()){
+           rendezes+="order by";
+           for (int i = 0; i < RendezesListView.getItems().size(); i++) {
+               if(i==0){
+                if(RendezesListView.getItems().get(i).contains("Növekvő")){
+                   rendezes+=" "+RendezesListView.getItems().get(i).substring(0, RendezesListView.getItems().get(i).length()-7)+" ASC ";
+                }else if(RendezesListView.getItems().get(i).contains("Csökkenő")){
+                   rendezes+=" "+RendezesListView.getItems().get(i).substring(0, RendezesListView.getItems().get(i).length()-8)+" DESC ";
+                }
+               }else{
+                if(RendezesListView.getItems().get(i).contains("Növekvő")){
+                 rendezes+=", "+RendezesListView.getItems().get(i).substring(0, RendezesListView.getItems().get(i).length()-7)+" ASC ";  
+                }else if(RendezesListView.getItems().get(i).contains("Csökkenő")){
+                 rendezes+=", "+RendezesListView.getItems().get(i).substring(0, RendezesListView.getItems().get(i).length()-8)+" DESC ";  
+                } 
+               }
+           }
+       }
+       if(tabla.equals("Konyv")){
+           oszlop=KonyvOszlop;
+       }else{
+           oszlop=aKulcsOszlop;
+       }
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            Eredmeny=aDAO.queryKonyv("SELECT "+oszlop+" FROM "+tabla+" "+szures +" "+rendezes);
+       }
+       EredmenyFejlec = OszlopFormazas(tabla);
+
+        List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
+
+       ListHbox.setPrefWidth(125*EredmenyFejlec.size());
+       ListHbox.getChildren().clear();
+      
+       //Dinamikus számú listview készítés.
+       for (int i = 0; i < EredmenyFejlec.size(); i++) {
+                LekerdezesLista.add(new ListView<String>());
+            }
+       //Az oszlopok neveinek hozzáadása.
+        for (int i = 0; i < EredmenyFejlec.size(); i++) {
+            LekerdezesLista.get(i).getItems().add(EredmenyFejlec.get(i));
+        }
+       
+       if(EredmenyFejlec.size()!=1){
+        for (Object[] obj : Eredmeny) {
+            for (int i = 0; i < LekerdezesLista.size(); i++) {
+                LekerdezesLista.get(i).getItems().add(obj[i].toString());
+            }
+        }
+       }else{
+       LekerdezesLista.get(0).getItems().add(Eredmeny.toString().substring(1, Eredmeny.toString().length()-1));
+       }
+       
+       for (int i = 0; i < LekerdezesLista.size(); i++) {
+                ListHbox.getChildren().add(LekerdezesLista.get(i));
+            }
+    
+        
+    } 
+    
+    @FXML
+    void  Tabla_SelectedIndexChanged() 
+    {  
+        
+        
+        OszlopSzuresComboBox.getItems().clear();
+        OszlopRendezesComboBox.getItems().clear();
+        List<String> EredmenyFejlec = new ArrayList<String>();
+            EredmenyFejlec = OszlopFormazas(TablaComboBox.getValue());
+            
+            for (String string : EredmenyFejlec) {
+
+             OszlopSzuresComboBox.getItems().add(string);
+             OszlopRendezesComboBox.getItems().add(string);
+            }
+    }
+    
+    @FXML
+    void  EmptyFieldsButtonPushed() 
+    {
+    OszlopSzuresComboBox.setValue(null);
+    OszlopRendezesComboBox.setValue(null);    
+    RendezesComboBox.setValue(null);
+    OperatorTextField.setText("");
+    KapcsolatTextField.setText("");      
+    ErtekTextField.setText(""); 
+    SzuresListView.getItems().clear();
+    RendezesListView.getItems().clear();
+    KapcsolatTextField.setDisable(true);
+    }
+    
+    @FXML
+    void  SzuresAddButtonPushed() 
+    {
+        if(OszlopSzuresComboBox.getValue() ==null || OperatorTextField.getText().isEmpty() || ErtekTextField.getText().isEmpty() &&  SzuresListView.getItems().size()==0){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Hiba");
+            alert.setHeaderText("Nem töltöttél ki minden mezőt a szűréshez!");
+            alert.setContentText("Így nem sikeres a feltétel hozzáadaása.");
+            alert.showAndWait();
+        }else if(OszlopSzuresComboBox.getValue() ==null || OperatorTextField.getText().isEmpty() || ErtekTextField.getText().isEmpty() || KapcsolatTextField.getText().isEmpty() &&  SzuresListView.getItems().size()!=0){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Hiba");
+            alert.setHeaderText("Nem töltöttél ki minden mezőt a szűréshez!");
+            alert.setContentText("Így nem sikeres a feltétel hozzáadaása.");
+            alert.showAndWait();
+        }else{
+            if(!KapcsolatTextField.getText().isEmpty()){
+                 SzuresListView.getItems().add(KapcsolatTextField.getText());
+            }
+            SzuresListView.getItems().add(OszlopSzuresComboBox.getValue()+" "+ OperatorTextField.getText()+" "+ErtekTextField.getText());
+            KapcsolatTextField.setDisable(false);
+        }
+        
+        
+    }
+
+    @FXML
+    void  RendezesAddButtonPushed() 
+    {
+        if(RendezesComboBox.getValue() == null ||OszlopRendezesComboBox.getValue() == null){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Hiba");
+            alert.setHeaderText("Nem állítottál be minden mezőt a rendezéshez!");
+            alert.setContentText("Így nem sikeres a feltétel hozzáadaása.");
+            alert.showAndWait();
+        }else{
+            if(RendezesListView.getItems().contains(OszlopRendezesComboBox.getValue()+" Csökkenő" )|| RendezesListView.getItems().contains(OszlopRendezesComboBox.getValue()+" Növekvő")){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Hiba");
+            alert.setHeaderText("Ilyen rendezésed már van!");
+            alert.setContentText("Így nem sikeres a feltétel hozzáadaása.");
+            alert.showAndWait();    
+            }else{
+                RendezesListView.getItems().add(OszlopRendezesComboBox.getValue()+" "+RendezesComboBox.getValue());
+            }  
+        }
+    }
+    
+    public void KonyvOszlop(){
+       List<String> EredmenyFejlec = new ArrayList<String>();
+       
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM KONYV");
+       }
+        for (int i = 0; i < EredmenyFejlec.size(); i++) {
+            if(i==0){
+                KonyvOszlop+=EredmenyFejlec.get(i);
+            }else{
+                KonyvOszlop+=", "+EredmenyFejlec.get(i);
+            }
+        }
+            
+    }
+    
+    public void aKulcsOszlop(){
+        List<String> EredmenyFejlec = new ArrayList<String>();
+       
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM AKULCS");
+       }
+       for (int i = 0; i < EredmenyFejlec.size(); i++) {
+            if(i==0){
+                aKulcsOszlop+=EredmenyFejlec.get(i);
+            }else{
+                aKulcsOszlop+=", "+EredmenyFejlec.get(i);
+            }
+        }
+    }
+    
+    public List<String> OszlopFormazas(String tablanev){
+        String token=", ";
+        List<String> vissza = new ArrayList<String>();
+            if(tablanev.equals("Konyv")){
+                String [] KonyvOszlopArray=KonyvOszlop.split(token);
+                for (int i = 0; i < KonyvOszlopArray.length; i++) {
+                    vissza.add(KonyvOszlopArray[i]);
+                }
+            }else{
+                String [] aKulcsOszlopArray=aKulcsOszlop.split(token);
+                for (int i = 0; i < aKulcsOszlopArray.length; i++) {
+                    vissza.add(aKulcsOszlopArray[i]);
+                }
+            }
+            return vissza;
+    }
+           
+   
     /**
      * Initializes the controller class.
      */
@@ -361,13 +523,12 @@ public class FXMLStudentsSceneController implements Initializable {
                                             "Napjaink, bulvár, politika" ,"Nyelvkönyv, szótár" ,"Pénz, gazdaság, üzleti élet" ,"Sport, természetjárás" ,
                                             "Számítástechnika, internet" ,"Tankönyvek, segédkönyvek" ,"Társ. tudományok" ,"Térkép" ,
                                             "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia","Sci-Fi, Fantasy");
-       /*TablaComboBox.getItems().addAll("Könyv","Kulcs");
-       id.setCellValueFactory(new PropertyValueFactory<>("ID"));
-       kulcsszo.setCellValueFactory(new PropertyValueFactory<>("Kulcsszó"));
-       Tabla.setItems(observableList2);*/
-       
+       KonyvOszlop();
+       aKulcsOszlop();
         SqlHbox.setPrefWidth(300);
         OszlopComboBox.getItems().addAll("Konyv","Akulcs");
+        TablaComboBox.getItems().addAll("Konyv","Akulcs");
+        RendezesComboBox.getItems().addAll("Csökkenő","Növekvő");
     }
 
     

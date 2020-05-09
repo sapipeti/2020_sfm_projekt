@@ -20,7 +20,7 @@ import org.hibernate.transform.AliasToEntityMapResultTransformer;
 public class JpaKonyvDAO implements AutoCloseable{
     Session session;
     Transaction transaction;
-
+    
     public JpaKonyvDAO() {
         session = HibernateUtil.getSessionFactory().openSession();
     }
@@ -75,7 +75,7 @@ public class JpaKonyvDAO implements AutoCloseable{
         Query query = session.createQuery(hql);
         return query.list();
     }
-    
+
     public List<String> queryKonyvFejlec(String lekerdezes){
         List<String> lista = new ArrayList<String>();
         try{
@@ -108,6 +108,19 @@ public class JpaKonyvDAO implements AutoCloseable{
             transaction = session.beginTransaction();
             Query query1 = session.createSQLQuery(lekerdezes);
             queryResult = (List<Object[]>)query1.list();
+            
+            //SZAROK AZ OSZLOPNEVEK
+            /*System.out.println("--------------------");
+            List<String> lista = new ArrayList<String>();
+            query1.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+            List<Map<String,Object>> aliasToValueMapList=query1.list();
+            for (Map<String, Object> map : aliasToValueMapList) {
+               for (Map.Entry<String, Object> entry : map.entrySet()) {
+                   lista.add(entry.getKey().toString());
+               }
+               break;
+            }*/
+
             
             transaction.commit();
         }
