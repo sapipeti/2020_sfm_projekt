@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -43,11 +44,6 @@
                               <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="273.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextField fx:id="NewIDTextField" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
-                                 </GridPane.margin>
-                              </TextField>
                               <TextField fx:id="NewSzerzoTextField" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
@@ -68,16 +64,6 @@
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </DatePicker>
-                              <TextField fx:id="NewMufajTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <TextField fx:id="NewKulcsszavakTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                 <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
-                                 </GridPane.margin>
-                              </TextField>
                               <TextField fx:id="NewNyelvTextField" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
@@ -93,11 +79,6 @@
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="332.0" text="ID">
-                                 <font>
-                                    <Font name="Lucida Calligraphy Italic" size="16.0" />
-                                 </font>
-                              </Label>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="386.0" text="Szerzo" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
@@ -114,11 +95,6 @@
                                  </font>
                               </Label>
                               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="402.0" text="Beszerzesi ido" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <font>
-                                    <Font name="Lucida Calligraphy Italic" size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="340.0" text="Kulcsszavak" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
@@ -170,17 +146,8 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleUpdateButtonPushed" prefHeight="193.0" prefWidth="220.0" style="-fx-background-color: yellow;" text="UPDATE" textAlignment="CENTER">
-                                       <font>
-                                          <Font name="Imprint MT Shadow" size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <HBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </HBox.margin>
-                                    </Button>
+                                    <ComboBox fx:id="KulcsszavakComboBox" onAction="#Kulcsszavak_SelectedIndexChanged" prefWidth="150.0" promptText="Kulcsszavak" />
+                                    <ListView fx:id="KulcsszavakListView" prefHeight="200.0" prefWidth="200.0" />
                                  </children>
                               </HBox>
                               <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
@@ -196,20 +163,9 @@
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleDeleteButtonPushed" prefHeight="71.0" prefWidth="220.0" style="-fx-background-color: red;" text="DELETE" textAlignment="CENTER">
-                                       <font>
-                                          <Font name="Imprint MT Shadow" size="18.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" />
-                                       </VBox.margin>
-                                    </Button>
                                  </children>
                               </VBox>
-                              <CheckBox fx:id="BoritoCheckBox" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="127.0" selected="true" text="Borito" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                              <CheckBox fx:id="BoritoCheckBox" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="127.0" selected="true" text="Borito" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="14.0" />
                                  </font>
@@ -217,7 +173,7 @@
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </CheckBox>
-                              <CheckBox fx:id="ElolvasvaCheckBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ElolvasvaBox" prefHeight="24.0" prefWidth="132.0" text="Elolvasva" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                              <CheckBox fx:id="ElolvasvaCheckBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ElolvasvaBox" prefHeight="24.0" prefWidth="132.0" text="Elolvasva" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="14.0" />
                                  </font>
@@ -225,6 +181,7 @@
                                     <Insets left="170.0" />
                                  </GridPane.margin>
                               </CheckBox>
+                              <ComboBox fx:id="MufajokComboBox" prefHeight="25.0" prefWidth="180.0" promptText="Műfajok" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
                      </children>
@@ -235,8 +192,8 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView layoutX="395.0" layoutY="87.0" prefHeight="200.0" prefWidth="312.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="72.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: green;" text="LIST" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
+                        <ListView fx:id="LekerdezesListView" layoutX="395.0" layoutY="87.0" prefHeight="200.0" prefWidth="312.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="72.0" mnemonicParsing="false" onAction="#ListButtonPushed" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: green;" text="LIST" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font name="HoloLens MDL2 Assets" size="19.0" />
                            </font>
