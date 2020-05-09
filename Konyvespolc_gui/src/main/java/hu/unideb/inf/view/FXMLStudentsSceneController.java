@@ -24,10 +24,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import net.javaguides.hibernate.entity.Konyv;
 import net.javaguides.hibernate.entity.Kulcsszo;
 import net.javaguides.hibernate.util.JpaKonyvDAO;
+import org.h2.table.Table;
 
 /**
  * FXML Controller class
@@ -39,7 +42,7 @@ public class FXMLStudentsSceneController implements Initializable {
    
     @FXML
     private TextField NewSzerzoTextField;
-    
+
     @FXML
     private TextField NewCimTextField;
 
@@ -80,6 +83,8 @@ public class FXMLStudentsSceneController implements Initializable {
     @FXML
     private ListView<String> LekerdezesListView;
     
+    @FXML
+    private TableView Tabla;
     
     @FXML
     void ElolvasvaBox() 
@@ -90,11 +95,20 @@ public class FXMLStudentsSceneController implements Initializable {
     @FXML
     void handleSaveButtonPushed() 
     { 
-        if (    NewSzerzoTextField.getText().length() <= 0 ||
-                NewCimTextField.getText().length() <= 0 ||
-                NewKiadoTextField.getText().length() <= 0 ||
-                NewNyelvTextField.getText().length() <= 0)
-             exit(1);
+        if (    NewSzerzoTextField.getText().trim().isEmpty() ||
+                NewCimTextField.getText().trim().isEmpty() ||
+                NewKiadoTextField.getText().trim().isEmpty() ||
+                NewOldalSzamTextField.getText().trim().isEmpty() ||
+                NewNyelvTextField.getText().trim().isEmpty() ||
+                NewSulyTextField.getText().trim().isEmpty() ||
+                KiadasiEvTextField.getText().trim().isEmpty() ||
+                BeszerzesiIdoDatePIcker.getValue() != null){
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Hiányzó értékek");
+                alert.setHeaderText("Nem töltöttél ki minden kötelező mezőt!");
+                alert.setContentText("Az adat nem lett feltöltve az adatbázisba!");
+                alert.showAndWait();
+            }      
         else
         {
   
@@ -152,105 +166,6 @@ public class FXMLStudentsSceneController implements Initializable {
     }
     
     
-     @FXML
-    void HandleMouseExitSzerzo() 
-    {
-        if (NewSzerzoTextField.getText().length() <= 0)
-        {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Szerzo Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Szerzo Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szoveget");
-            alert.showAndWait();
-        }
-    }
-
-    @FXML
-    void HandleMouseExitCim() 
-    {
-        if (NewCimTextField.getText().length() <= 0)
-        {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Cim Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Cim Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szoveget");
-            alert.showAndWait();
-        }
-
-    }
-
-    @FXML
-    void HandleMouseExitKiado() 
-    {
-        if (NewKiadoTextField.getText().length() <= 0)
-        {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Kiado Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Kiado Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szoveget");
-            alert.showAndWait();
-        }
-
-    }
-
-    @FXML
-    void HandleMouseExitNyelv() throws InterruptedException
-    {
-        if (NewNyelvTextField.getText().length() <= 0)
-        {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Nyelv Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Nyelv Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szoveget");
-            alert.showAndWait();
-        }
-
-    }
-    
-    @FXML
-    void HandleMouseExitKiadasiEv() 
-    {
-        if (Integer.parseInt(KiadasiEvTextField.getText()) <= 0)
-        {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Kiadasi Ev Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Kiadasi Ev Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szamot");
-            alert.showAndWait();
-        }
-    }
-
-    @FXML
-    void HandleMouseExitOldalszam() 
-    {
-        if (Integer.parseInt(NewOldalSzamTextField.getText()) <= 0)
-        {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Kiadasi Oldalszam Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Oldalszam Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szamot");
-            alert.showAndWait();
-            
-        }
-    }
-
-    @FXML
-    void HandleMouseExitSuly() 
-    {
-        if(!NewSulyTextField.getText().contains("[a-z]"))
-        //if (Integer.parseInt(NewSulyTextField.getText()) <= 0)
-        {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Suly Mezo");
-            alert.setHeaderText("Megprobaltad elhagyni a Suly Mezot!");
-            alert.setContentText("Kerlek irj be nemi kamu szamot");
-            alert.showAndWait();
-        }
-    }
-    
-    
-    
-    
     @FXML
     void handleEmptyButtonPushed() 
     {  
@@ -289,14 +204,66 @@ public class FXMLStudentsSceneController implements Initializable {
     @FXML
     void  ListButtonPushed() 
     {
-        List<String> Eredmeny = new ArrayList<String>();
+        List<Object[]> Eredmeny = new ArrayList<Object[]>();
+        List<String> EredmenyFejlec = new ArrayList<String>();
        try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            Eredmeny=aDAO.queryKonyv("SELECT NYELV FROM KONYV");
+            Eredmeny=aDAO.queryKonyv("SELECT ID,NYELV FROM KONYV");
        }
-        for (String string : Eredmeny) {
-            System.out.println(string+"\n");
-            LekerdezesListView.getItems().add(string);
-        } 
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT ID,NYELV FROM KONYV");
+       }
+       
+       
+       
+        for (Object[] obj : Eredmeny) {
+            LekerdezesListView.getItems().add(obj[0]+" "+obj[1]);
+            
+            //A TableViewba sort nem lehet hozzáadni csak objektum példányaként.
+            //Tabla.getItems().add(new Konyv());
+        }
+        
+        
+        TableColumn id = new TableColumn("ID");
+        TableColumn nyelv = new TableColumn("Nyelv");
+        TableColumn beszerz_ido = new TableColumn("Beszerzés_idő");
+        TableColumn borito = new TableColumn("Borító");
+        TableColumn cim = new TableColumn("Cím");
+        TableColumn elolvasva = new TableColumn("Elolvasva");
+        TableColumn kiadasi_ev = new TableColumn("Kiadási_év");
+        TableColumn kiado = new TableColumn("Kiadó");
+        TableColumn mufaj = new TableColumn("Műfaj");
+        TableColumn oldalszam = new TableColumn("Oldalszám");
+        TableColumn szerzo = new TableColumn("Szerző");
+        TableColumn suly = new TableColumn("Súly");
+        
+        for (String string : EredmenyFejlec) {
+            if(string.toLowerCase().equals("id")){
+                Tabla.getColumns().add(id);
+            }else if(string.toLowerCase().equals("nyelv")){
+                Tabla.getColumns().add(nyelv);
+            }else if(string.toLowerCase().equals("beszerzés_idő")){
+                Tabla.getColumns().add(beszerz_ido);
+            }else if(string.toLowerCase().equals("borító")){
+                Tabla.getColumns().add(borito);
+            }else if(string.toLowerCase().equals("cím")){
+                Tabla.getColumns().add(cim);
+            }else if(string.toLowerCase().equals("kiadás_év")){
+                Tabla.getColumns().add(kiadasi_ev);
+            }else if(string.toLowerCase().equals("kiadó")){
+                Tabla.getColumns().add(kiado);
+            }else if(string.toLowerCase().equals("műfaj")){
+                Tabla.getColumns().add(mufaj);
+            }else if(string.toLowerCase().equals("oldalszám")){
+                Tabla.getColumns().add(oldalszam);
+            }else if(string.toLowerCase().equals("súly")){
+                Tabla.getColumns().add(suly);
+            }else if(string.toLowerCase().equals("elolvasva")){
+                Tabla.getColumns().add(elolvasva);
+            }else if(string.toLowerCase().equals("szerzo")){
+                Tabla.getColumns().add(szerzo);
+            }
+        }
+        
     } 
     
     /**
@@ -311,6 +278,10 @@ public class FXMLStudentsSceneController implements Initializable {
                                             "Napjaink, bulvár, politika" ,"Nyelvkönyv, szótár" ,"Pénz, gazdaság, üzleti élet" ,"Sport, természetjárás" ,
                                             "Számítástechnika, internet" ,"Tankönyvek, segédkönyvek" ,"Társ. tudományok" ,"Térkép" ,
                                             "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia");
+        
+       
+        
+        
     }
 
     

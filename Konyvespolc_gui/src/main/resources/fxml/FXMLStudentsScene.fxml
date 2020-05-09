@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -26,7 +27,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <GridPane layoutX="27.0" layoutY="58.0" prefHeight="525.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane prefHeight="525.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="700.0" minWidth="10.0" prefWidth="800.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="700.0" minWidth="10.0" prefWidth="800.0" />
@@ -41,25 +42,26 @@
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
                               <RowConstraints vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="273.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <TextField fx:id="NewSzerzoTextField" GridPane.rowIndex="3">
+                              <TextField fx:id="NewSzerzoTextField" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewCimTextField" GridPane.rowIndex="5">
+                              <TextField fx:id="NewCimTextField" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewKiadoTextField" GridPane.rowIndex="7">
+                              <TextField fx:id="NewKiadoTextField" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <DatePicker fx:id="BeszerzesiIdoDatePIcker" prefHeight="25.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <DatePicker fx:id="BeszerzesiIdoDatePIcker" prefHeight="25.0" prefWidth="381.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
@@ -79,22 +81,22 @@
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="386.0" text="Szerzo" GridPane.rowIndex="2">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="386.0" text="Szerzo">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="394.0" text="Cim" GridPane.rowIndex="4">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="394.0" text="Cim" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="307.0" text="Kiado" GridPane.rowIndex="6">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="307.0" text="Kiado" GridPane.rowIndex="4">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="402.0" text="Beszerzesi ido" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="402.0" text="Beszerzesi ido" GridPane.columnIndex="2" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
@@ -109,7 +111,7 @@
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="344.0" text="Műfaj" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="344.0" text="Mufaj" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
@@ -119,53 +121,47 @@
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="KiadasiEvTextField" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                              <TextField fx:id="KiadasiEvTextField" GridPane.rowIndex="7">
                                  <GridPane.margin>
                                     <Insets left="7.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="530.0" text="Kiadasi ev" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="530.0" text="Kiadasi ev" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="16.0" />
                                  </font>
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="8">
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveButtonPushed" prefHeight="193.0" prefWidth="220.0" style="-fx-background-color: green;" text="SAVE" textAlignment="CENTER">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveButtonPushed" prefHeight="50.0" prefWidth="200.0" text="Save" textAlignment="CENTER">
                                        <font>
-                                          <Font name="Imprint MT Shadow" size="18.0" />
+                                          <Font name="Imprint MT Shadow" size="26.0" />
                                        </font>
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
                                        <HBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                          <Insets left="50.0" top="20.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                                 <children>
-                                    <ComboBox fx:id="KulcsszavakComboBox" onAction="#Kulcsszavak_SelectedIndexChanged" prefWidth="150.0" promptText="Kulcsszavak" />
-                                    <ListView fx:id="KulcsszavakListView" prefHeight="200.0" prefWidth="200.0" />
-                                 </children>
-                              </HBox>
                               <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEmptyButtonPushed" prefHeight="106.0" prefWidth="220.0" style="-fx-background-color: purple;" text="Empty Fields" textAlignment="CENTER">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEmptyButtonPushed" prefHeight="50.0" prefWidth="200.0" text="Empty Fields" textAlignment="CENTER">
                                        <font>
-                                          <Font name="Imprint MT Shadow" size="18.0" />
+                                          <Font name="Imprint MT Shadow" size="26.0" />
                                        </font>
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
                                        <VBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                          <Insets left="50.0" top="20.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
                               </VBox>
-                              <CheckBox fx:id="BoritoCheckBox" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="127.0" selected="true" text="Borito" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                              <CheckBox fx:id="BoritoCheckBox" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="127.0" selected="true" text="Borito" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="14.0" />
                                  </font>
@@ -173,7 +169,7 @@
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                               </CheckBox>
-                              <CheckBox fx:id="ElolvasvaCheckBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ElolvasvaBox" prefHeight="24.0" prefWidth="132.0" text="Elolvasva" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                              <CheckBox fx:id="ElolvasvaCheckBox" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ElolvasvaBox" prefHeight="24.0" prefWidth="132.0" text="Elolvasva" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <font>
                                     <Font name="Lucida Calligraphy Italic" size="14.0" />
                                  </font>
@@ -181,7 +177,21 @@
                                     <Insets left="170.0" />
                                  </GridPane.margin>
                               </CheckBox>
-                              <ComboBox fx:id="MufajokComboBox" prefHeight="25.0" prefWidth="180.0" promptText="Műfajok" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <ComboBox fx:id="MufajokComboBox" prefHeight="25.0" prefWidth="303.0" promptText="Műfajok" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                 <children>
+                                    <ComboBox fx:id="KulcsszavakComboBox" onAction="#Kulcsszavak_SelectedIndexChanged" prefWidth="150.0" promptText="Kulcsszavak">
+                                       <HBox.margin>
+                                          <Insets left="80.0" top="20.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                 </children>
+                              </HBox>
+                              <ListView fx:id="KulcsszavakListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                 <GridPane.margin>
+                                    <Insets left="95.0" />
+                                 </GridPane.margin>
+                              </ListView>
                            </children>
                         </GridPane>
                      </children>
@@ -198,6 +208,7 @@
                               <Font name="HoloLens MDL2 Assets" size="19.0" />
                            </font>
                         </Button>
+                        <TableView fx:id="Tabla" layoutX="180.0" layoutY="262.0" prefHeight="210.0" prefWidth="707.0" />
                      </children>
                   </AnchorPane>
               </content>
