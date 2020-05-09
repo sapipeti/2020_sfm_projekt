@@ -1,5 +1,0 @@
-net\javaguides\hibernate\App.class
-net\javaguides\hibernate\entity\Kulcsszo.class
-net\javaguides\hibernate\util\JpaKonyvDAO.class
-net\javaguides\hibernate\util\HibernateUtil.class
-net\javaguides\hibernate\entity\Konyv.class
