@@ -202,13 +202,33 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="LekerdezesListView" layoutX="395.0" layoutY="87.0" prefHeight="200.0" prefWidth="312.0" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
                         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="72.0" mnemonicParsing="false" onAction="#ListButtonPushed" prefHeight="53.0" prefWidth="118.0" style="-fx-background-color: green;" text="LIST" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
                            <font>
                               <Font name="HoloLens MDL2 Assets" size="19.0" />
                            </font>
                         </Button>
-                        <TableView fx:id="Tabla" layoutX="180.0" layoutY="262.0" prefHeight="210.0" prefWidth="707.0" />
+                        <TableView fx:id="Tabla" layoutX="180.0" layoutY="30.0" prefHeight="442.0" prefWidth="707.0" />
+                        <ComboBox fx:id="TablaComboBox" layoutX="14.0" layoutY="52.0" prefWidth="150.0" promptText="Válassz táblát" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="SQL Lekerdezes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="LekerdezesSQLListView1" layoutX="129.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="697.0" AnchorPane.topAnchor="78.0" />
+                        <Button layoutX="27.0" layoutY="78.0" mnemonicParsing="false" onAction="#ListSQLButtonPushed" text="Lekérdezés" />
+                        <TextField fx:id="SqlQueryTextField" layoutX="27.0" layoutY="32.0" prefHeight="25.0" prefWidth="300.0" />
+                        <Label layoutX="27.0" layoutY="14.0" text="Adj meg egy SQL utasítást" />
+                        <ListView fx:id="LekerdezesSQLListView2" layoutX="209.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView3" layoutX="287.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView4" layoutX="367.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView5" layoutX="447.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView6" layoutX="527.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView7" layoutX="607.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView8" layoutX="687.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
+                        <ListView fx:id="LekerdezesSQLListView9" layoutX="767.0" layoutY="78.0" prefHeight="400.0" prefWidth="80.0" />
                      </children>
                   </AnchorPane>
               </content>

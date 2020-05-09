@@ -27,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import net.javaguides.hibernate.entity.Konyv;
 import net.javaguides.hibernate.entity.Kulcsszo;
 import net.javaguides.hibernate.util.JpaKonyvDAO;
@@ -54,8 +55,7 @@ public class FXMLStudentsSceneController implements Initializable {
 
     @FXML
     private TextField NewNyelvTextField;
-
-
+    
     @FXML
     private TextField NewSulyTextField;
 
@@ -81,10 +81,44 @@ public class FXMLStudentsSceneController implements Initializable {
     private ListView<String> KulcsszavakListView;
     
     @FXML
-    private ListView<String> LekerdezesListView;
+    private TableView Tabla;
+     
+    @FXML
+    private ComboBox<String> TablaComboBox;
+     
+    @FXML
+    private ListView<String> LekerdezesSQLListView1;
+    @FXML
+    private ListView<String> LekerdezesSQLListView2;
+    @FXML
+    private ListView<String> LekerdezesSQLListView3;
+    @FXML
+    private ListView<String> LekerdezesSQLListView4;
+    @FXML
+    private ListView<String> LekerdezesSQLListView5;
+    @FXML
+    private ListView<String> LekerdezesSQLListView6;
+    @FXML
+    private ListView<String> LekerdezesSQLListView7;
+    @FXML
+    private ListView<String> LekerdezesSQLListView8;
+    @FXML
+    private ListView<String> LekerdezesSQLListView9;
+    @FXML
+    private ListView<String> LekerdezesSQLListView10;
+    @FXML
+    private ListView<String> LekerdezesSQLListView11;
+    @FXML
+    private ListView<String> LekerdezesSQLListView12;
+    @FXML
+    private ListView<String> LekerdezesSQLListView13;
+    @FXML
+    private ListView<String> LekerdezesSQLListView14;
+    @FXML
+    private ListView<String> LekerdezesSQLListView15;
     
     @FXML
-    private TableView Tabla;
+    private TextField SqlQueryTextField;
     
     @FXML
     void ElolvasvaBox() 
@@ -102,7 +136,7 @@ public class FXMLStudentsSceneController implements Initializable {
                 NewNyelvTextField.getText().trim().isEmpty() ||
                 NewSulyTextField.getText().trim().isEmpty() ||
                 KiadasiEvTextField.getText().trim().isEmpty() ||
-                BeszerzesiIdoDatePIcker.getValue() != null){
+                BeszerzesiIdoDatePIcker.getValue() == null){
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Hiányzó értékek");
                 alert.setHeaderText("Nem töltöttél ki minden kötelező mezőt!");
@@ -204,26 +238,26 @@ public class FXMLStudentsSceneController implements Initializable {
     @FXML
     void  ListButtonPushed() 
     {
-        List<Object[]> Eredmeny = new ArrayList<Object[]>();
-        List<String> EredmenyFejlec = new ArrayList<String>();
-       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            Eredmeny=aDAO.queryKonyv("SELECT ID,NYELV FROM KONYV");
-       }
-       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT ID,NYELV FROM KONYV");
-       }
-       
-       
-       
-        for (Object[] obj : Eredmeny) {
-            LekerdezesListView.getItems().add(obj[0]+" "+obj[1]);
-            
-            //A TableViewba sort nem lehet hozzáadni csak objektum példányaként.
-            //Tabla.getItems().add(new Konyv());
+        String tabla =TablaComboBox.getValue();
+        
+        if(tabla.equals("Könyv")){
+            tabla="konyv";
+        }else{
+            tabla="akulcs";
         }
         
+        List<Object[]> Eredmeny = new ArrayList<Object[]>();
+        List<String> EredmenyFejlec = new ArrayList<String>();
+        
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            Eredmeny=aDAO.queryKonyv("SELECT * FROM "+tabla);
+       }
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            EredmenyFejlec=aDAO.queryKonyvFejlec("SELECT * FROM "+tabla);
+       }
         
         TableColumn id = new TableColumn("ID");
+        id.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn nyelv = new TableColumn("Nyelv");
         TableColumn beszerz_ido = new TableColumn("Beszerzés_idő");
         TableColumn borito = new TableColumn("Borító");
@@ -235,36 +269,63 @@ public class FXMLStudentsSceneController implements Initializable {
         TableColumn oldalszam = new TableColumn("Oldalszám");
         TableColumn szerzo = new TableColumn("Szerző");
         TableColumn suly = new TableColumn("Súly");
+        TableColumn kulcsszo = new TableColumn("Kulcsszó");
         
-        for (String string : EredmenyFejlec) {
-            if(string.toLowerCase().equals("id")){
-                Tabla.getColumns().add(id);
-            }else if(string.toLowerCase().equals("nyelv")){
-                Tabla.getColumns().add(nyelv);
-            }else if(string.toLowerCase().equals("beszerzés_idő")){
-                Tabla.getColumns().add(beszerz_ido);
-            }else if(string.toLowerCase().equals("borító")){
-                Tabla.getColumns().add(borito);
-            }else if(string.toLowerCase().equals("cím")){
-                Tabla.getColumns().add(cim);
-            }else if(string.toLowerCase().equals("kiadás_év")){
-                Tabla.getColumns().add(kiadasi_ev);
-            }else if(string.toLowerCase().equals("kiadó")){
-                Tabla.getColumns().add(kiado);
-            }else if(string.toLowerCase().equals("műfaj")){
-                Tabla.getColumns().add(mufaj);
-            }else if(string.toLowerCase().equals("oldalszám")){
-                Tabla.getColumns().add(oldalszam);
-            }else if(string.toLowerCase().equals("súly")){
-                Tabla.getColumns().add(suly);
-            }else if(string.toLowerCase().equals("elolvasva")){
-                Tabla.getColumns().add(elolvasva);
-            }else if(string.toLowerCase().equals("szerzo")){
-                Tabla.getColumns().add(szerzo);
+
+        if(EredmenyFejlec.size()==3){
+            Tabla.getColumns().add(id);
+            Tabla.getColumns().add(kulcsszo);
+        }else if(EredmenyFejlec.size()!=0){
+            Tabla.getColumns().add(id);
+            Tabla.getColumns().add(nyelv);
+            Tabla.getColumns().add(beszerz_ido);
+            Tabla.getColumns().add(borito);
+            Tabla.getColumns().add(cim);
+            Tabla.getColumns().add(kiadasi_ev);
+            Tabla.getColumns().add(kiado);
+            Tabla.getColumns().add(mufaj);
+            Tabla.getColumns().add(oldalszam);
+            Tabla.getColumns().add(suly);
+            Tabla.getColumns().add(elolvasva);
+            Tabla.getColumns().add(szerzo);
+        }
+
+        for (Object[] obj : Eredmeny) {
+            //LekerdezesListView.getItems().add(obj[0]+" "+obj[1]);
+            
+            //A TableViewba sort nem lehet hozzáadni csak objektum példányaként.
+            //Nem akarnak megjelenni a táblázatban az értékek.
+            if(EredmenyFejlec.size()!=3){
+            Tabla.getItems().add(new Konyv(obj[0].toString(),obj[1].toString(),Integer.parseInt(obj[2].toString()),obj[3].toString(),obj[4].toString(),obj[5].toString(),Integer.parseInt(obj[6].toString()),(boolean)obj[7],Integer.parseInt(obj[8].toString()),(LocalDate)obj[9],(boolean)obj[10]));
+            }else{
+            Tabla.getItems().add(new Kulcsszo((String)obj[1],(int)obj[0]));    
             }
         }
+    
         
     } 
+    @FXML
+    void  ListSQLButtonPushed() 
+    {
+        List<Object[]> Eredmeny = new ArrayList<Object[]>();
+        List<String> EredmenyFejlec = new ArrayList<String>();
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            Eredmeny=aDAO.queryKonyv(SqlQueryTextField.getText());
+       }
+       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            EredmenyFejlec=aDAO.queryKonyvFejlec(SqlQueryTextField.getText());
+       }
+       
+       
+       
+       //Nem volt szép megcsinálni mondhatom! De nincs más mód rá...
+        for (Object[] obj : Eredmeny) {
+            if(EredmenyFejlec.size()==1){
+                //LekerdezesSQLListView.getItems().add(obj[0]+"");
+            }
+            
+        }
+    }
     
     /**
      * Initializes the controller class.
@@ -277,9 +338,9 @@ public class FXMLStudentsSceneController implements Initializable {
                                             "Irodalom" ,"Képregény" ,"Kert, ház, otthon" ,"Lexikon, enciklopédia" ,"Művészet, építészet" ,
                                             "Napjaink, bulvár, politika" ,"Nyelvkönyv, szótár" ,"Pénz, gazdaság, üzleti élet" ,"Sport, természetjárás" ,
                                             "Számítástechnika, internet" ,"Tankönyvek, segédkönyvek" ,"Társ. tudományok" ,"Térkép" ,
-                                            "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia");
+                                            "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia","Sci-Fi, Fantasy");
         
-       
+       TablaComboBox.getItems().addAll("Könyv","Kulcs");
         
         
     }

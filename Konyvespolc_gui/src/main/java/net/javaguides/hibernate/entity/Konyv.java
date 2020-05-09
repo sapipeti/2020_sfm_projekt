@@ -175,7 +175,23 @@ public class Konyv implements Serializable {
         this.beszerzés_idő = beszerzés_idő;
         this.elolvasva = elolvasva;
     }
-   
+    //Második konstruktor
+    public Konyv(String szerzo, String cím, int kiadás_év, String kiadó, String műfaj, String Nyelv, int oldalszám, boolean borító, int súly, LocalDate beszerzés_idő, boolean elolvasva, int ID) {
+        this.szerzo = szerzo;
+        this.cím = cím;
+        this.kiadás_év = kiadás_év;
+        this.kiadó = kiadó;
+        this.műfaj = műfaj;
+    
+        this.Nyelv = Nyelv;
+        this.oldalszám = oldalszám;
+        this.borító = borító;
+        this.súly = súly;
+        this.beszerzés_idő = beszerzés_idő;
+        this.elolvasva = elolvasva;
+        this.ID=ID;
+    }
+    
    public Konyv(){}
 
     @Override

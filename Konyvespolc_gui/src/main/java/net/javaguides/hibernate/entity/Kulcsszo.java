@@ -23,7 +23,7 @@ public class Kulcsszo implements Serializable {
     @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
      @Column(unique = true)
-    private int id;
+    private int ID;
     @Column(unique = false)
     private String kulcsszo;
 
@@ -38,7 +38,12 @@ public class Kulcsszo implements Serializable {
     public Kulcsszo(String kulcsszo) {
         this.kulcsszo = kulcsszo;
     }
-
+    //Második konstruktor
+    public Kulcsszo(String kulcsszo, int ID) {
+        this.kulcsszo = kulcsszo;
+        this.ID = ID;
+    }
+    
     @Override
     public String toString() {
         return kulcsszo ;
