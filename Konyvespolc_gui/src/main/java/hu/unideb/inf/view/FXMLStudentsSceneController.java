@@ -261,15 +261,26 @@ public class FXMLStudentsSceneController implements Initializable {
     @FXML
     void  ListSQLButtonPushed() 
     {
+        String query=SqlQueryTextField.getText();
         List<Object[]> Eredmeny = new ArrayList<Object[]>();
         List<String> EredmenyFejlec = new ArrayList<String>();
+        
+        //Az oszlopnevek sorrendjének megoldása.
+        if(query.contains("*")){
+            query=SqlQueryTextField.getText();
+            if(query.toUpperCase().startsWith("SELECT * FROM KONYV")){
+                query=query.replaceAll("\\*",KonyvOszlop);
+            }else if(query.toUpperCase().startsWith("SELECT * FROM AKULCS")){
+                query=query.replaceAll("\\*",aKulcsOszlop);
+            }
+        }
        try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            Eredmeny=aDAO.queryKonyv(SqlQueryTextField.getText());
+            Eredmeny=aDAO.queryKonyv(query);
        }
        try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
-            EredmenyFejlec=aDAO.queryKonyvFejlec(SqlQueryTextField.getText());
+            EredmenyFejlec=aDAO.queryKonyvFejlec(query);
        }
-       
+        System.out.println(query+"-------------------------");
        List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
 
        SqlHbox.setPrefWidth(125*EredmenyFejlec.size());
