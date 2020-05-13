@@ -24,9 +24,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="722.0" prefWidth="906.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.view.FXMLStudentsSceneController">
    <children>
-      <TabPane layoutX="207.0" layoutY="-58.0" prefHeight="734.0" prefWidth="906.0" style="-fx-background-color: white; -fx-background-insets: 0 1 0 1,0,0;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutX="207.0" layoutY="-58.0" prefHeight="734.0" prefWidth="906.0" style="-fx-background-color: white; -fx-background-insets: 0 1 0 1,0,0;" stylesheets="@/fxml/tab.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-            <Tab style="-fx-background-color: white; -fx-border-color: grey;" text="Könyvek kezelése">
+            <Tab id="tab" text="Könyvek kezelése">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -35,7 +35,7 @@
                               <Image url="@/fxml/2.jpg" />
                            </image>
                         </ImageView>
-                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="188.0">
+                        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="712.0" style="-fx-background-image: url('/fxml/3.jpg');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="204.0">
                         
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="700.0" minWidth="10.0" prefWidth="800.0" />
@@ -44,7 +44,7 @@
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints />
-                              <RowConstraints maxHeight="27.199993896484376" minHeight="4.79998779296875" prefHeight="32.0" />
+                              <RowConstraints maxHeight="47.999975585937506" minHeight="10.399993896484375" prefHeight="32.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="47.999975585937506" minHeight="10.399993896484375" prefHeight="32.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="57.8" minHeight="13.800024414062491" prefHeight="32.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="59.399993896484375" minHeight="17.0" prefHeight="32.0" vgrow="SOMETIMES" />
@@ -60,37 +60,38 @@
                               <RowConstraints maxHeight="294.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               
-                              <TextField fx:id="NewSzerzoTextField" promptText="Isaac Asimov" GridPane.rowIndex="3">
+                              <TextField fx:id="NewSzerzoTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="265.0" promptText="Isaac Asimov" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="NewCimTextField" promptText="Alapítvány Trilógia" GridPane.rowIndex="5">
+                              <TextField fx:id="NewCimTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="265.0" promptText="Alapítvány Trilógia" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="NewKiadoTextField" promptText="Gabo" GridPane.rowIndex="7">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <DatePicker fx:id="BeszerzesiIdoDatePIcker" prefHeight="25.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <DatePicker fx:id="BeszerzesiIdoDatePIcker" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </DatePicker>
                               <TextField fx:id="NewOldalSzamTextField" promptText="888" GridPane.rowIndex="13">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
                               <TextField fx:id="NewSulyTextField" promptText="500" GridPane.rowIndex="15">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="386.0" text="Szerzo:" GridPane.rowIndex="2">
@@ -98,7 +99,7 @@
                                     <Font name="Century Schoolbook" size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="7.0" />
+                                    <Insets left="32.0" />
                                  </GridPane.margin>
                               </Label>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="394.0" text="Cim:" GridPane.rowIndex="4">
@@ -108,6 +109,9 @@
                                  <GridPane.margin>
                                     <Insets left="7.0" />
                                  </GridPane.margin>
+                                 <padding>
+                                    <Insets left="32.0" />
+                                 </padding>
                               </Label>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="307.0" text="Kiado:" GridPane.rowIndex="6">
                                  <font>
@@ -116,13 +120,16 @@
                                  <GridPane.margin>
                                     <Insets left="7.0" />
                                  </GridPane.margin>
+                                 <padding>
+                                    <Insets left="32.0" />
+                                 </padding>
                               </Label>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="402.0" text="Beszerzesi ido:" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Century Schoolbook" size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="7.0" />
+                                    <Insets left="32.0" />
                                  </GridPane.margin>
                               </Label>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="405.0" text="Oldalszam:" GridPane.rowIndex="12">
@@ -130,7 +137,7 @@
                                     <Font name="Century Schoolbook" size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="7.0" />
+                                    <Insets left="32.0" />
                                  </GridPane.margin>
                               </Label>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="344.0" text="Mufaj:" GridPane.columnIndex="1" GridPane.rowIndex="4">
@@ -138,7 +145,7 @@
                                     <Font name="Century Schoolbook" size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="7.0" />
+                                    <Insets left="32.0" />
                                  </GridPane.margin>
                               </Label>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="530.0" text="Suly:" GridPane.rowIndex="14">
@@ -146,12 +153,12 @@
                                     <Font name="Century Schoolbook" size="16.0" />
                                  </font>
                                  <GridPane.margin>
-                                    <Insets left="7.0" />
+                                    <Insets left="32.0" />
                                  </GridPane.margin>
                               </Label>
                               <TextField fx:id="KiadasiEvTextField" promptText="2018" GridPane.rowIndex="9">
                                  <GridPane.margin>
-                                    <Insets left="7.0" right="7.0" />
+                                    <Insets left="32.0" right="7.0" />
                                  </GridPane.margin>
                               </TextField>
                               <Label contentDisplay="CENTER" prefHeight="24.0" prefWidth="530.0" text="Kiadasi ev:" GridPane.rowIndex="8">
@@ -161,6 +168,9 @@
                                  <GridPane.margin>
                                     <Insets left="7.0" />
                                  </GridPane.margin>
+                                 <padding>
+                                    <Insets left="32.0" />
+                                 </padding>
                               </Label>
                               <HBox prefHeight="47.0" prefWidth="302.0" GridPane.rowIndex="10">
                                  <children>
@@ -169,7 +179,7 @@
                                           <Font name="Century Schoolbook" size="16.0" />
                                        </font>
                                        <padding>
-                                          <Insets left="7.0" />
+                                          <Insets left="32.0" />
                                        </padding>
                                     </Label>
                                  </children></HBox>
@@ -190,10 +200,12 @@
                                     <Insets left="170.0" />
                                  </GridPane.margin>
                               </CheckBox>
-                              <ComboBox fx:id="MufajokComboBox" prefHeight="25.0" prefWidth="288.0" promptText="Műfajok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                              <ComboBox fx:id="MufajokComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="250.0" promptText="Műfajok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets left="15.0" />
+                                 </GridPane.margin></ComboBox>
                               <ListView fx:id="KulcsszavakListView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="120.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveButtonPushed" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: black; -fx-background-color: white;" text="Save" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSaveButtonPushed" prefHeight="50.0" prefWidth="200.0" style="-fx-border-color: black; -fx-background-color: black;" text="Save" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="Franklin Gothic Book" size="26.0" />
                                  </font>
@@ -201,7 +213,8 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEmptyButtonPushed" prefHeight="48.0" prefWidth="214.0" text="Empty Fields" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEmptyButtonPushed" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: black;" text="Empty Fields" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="11">
                                  <font>
                                     <Font name="Franklin Gothic Book" size="26.0" />
                                  </font>
@@ -210,14 +223,17 @@
                                  </opaqueInsets>
                               </Button>
                               <ComboBox fx:id="KulcsszavakComboBox" onAction="#Kulcsszavak_SelectedIndexChanged" prefWidth="150.0" promptText="Kulcsszavak" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
-                              <TextField fx:id="NewNyelvTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.6" prefWidth="288.0" promptText="Magyar" GridPane.halignment="CENTER" GridPane.rowIndex="11" />
+                              <TextField fx:id="NewNyelvTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="265.0" promptText="Magyar" GridPane.halignment="CENTER" GridPane.rowIndex="11">
+                                 <GridPane.margin>
+                                    <Insets left="30.0" />
+                                 </GridPane.margin></TextField>
                            </children>
                         </GridPane>
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab style="-fx-background-color: white; -fx-border-color: grey;" text="Lekerdezes">
+            <Tab id="tab" text="Lekerdezes">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="545.0" prefWidth="905.0">
                      <children>
@@ -226,53 +242,59 @@
                               <Image url="@/fxml/2.jpg" />
                            </image>
                         </ImageView>
-                        <ComboBox fx:id="TablaComboBox" layoutX="14.0" layoutY="213.0" onAction="#Tabla_SelectedIndexChanged" prefHeight="25.0" prefWidth="167.0" promptText="Válassz táblát" />
-                        <ScrollPane layoutX="165.0" layoutY="286.0" prefHeight="391.0" prefWidth="700.0">
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="906.0" style="-fx-background-image: url('/fxml/5.jpg');" AnchorPane.topAnchor="204.0">
+                           <children>
+                              <Button layoutX="136.0" layoutY="74.0" mnemonicParsing="false" onAction="#EmptyFieldsButtonPushed" text="Szűrés törlése" />
+                              <ComboBox fx:id="OszlopSzuresComboBox" layoutX="48.0" layoutY="108.0" prefHeight="25.0" prefWidth="140.0" promptText="Válassz oszlopot" />
+                              <Button layoutX="48.0" layoutY="74.0" mnemonicParsing="false" onAction="#ListButtonPushed" prefHeight="25.0" prefWidth="70.0" text="Listázás" />
+                              <ComboBox fx:id="TablaComboBox" layoutX="48.0" layoutY="42.0" onAction="#Tabla_SelectedIndexChanged" prefHeight="25.0" prefWidth="176.0" promptText="Válassz táblát" />
+                              <TextField fx:id="ErtekTextField" layoutX="98.0" layoutY="141.0" prefHeight="25.0" prefWidth="90.0" promptText="'Magyar'" />
+                              <TextField fx:id="OperatorTextField" layoutX="49.0" layoutY="141.0" prefHeight="25.0" prefWidth="40.0" promptText="=" />
+                              <Button layoutX="98.0" layoutY="175.0" mnemonicParsing="false" onAction="#SzuresAddButtonPushed" prefHeight="25.0" prefWidth="90.0" text="Hozzáad" />
+                              <TextField fx:id="KapcsolatTextField" disable="true" layoutX="48.0" layoutY="175.0" prefHeight="25.0" prefWidth="41.0" />
+                              <ListView fx:id="SzuresListView" layoutX="48.0" layoutY="204.0" prefHeight="75.0" prefWidth="140.0" />
+                              <ComboBox fx:id="OszlopRendezesComboBox" layoutX="48.0" layoutY="287.0" prefHeight="25.0" prefWidth="140.0" promptText="Válassz oszlopot" />
+                              <Button layoutX="126.0" layoutY="321.0" mnemonicParsing="false" onAction="#RendezesAddButtonPushed" prefHeight="25.0" prefWidth="62.0" text="Hozzáad" />
+                              <ComboBox fx:id="RendezesComboBox" layoutX="49.0" layoutY="321.0" prefHeight="25.0" prefWidth="68.0" promptText="Rendezés" />
+                              <ListView fx:id="RendezesListView" layoutX="48.0" layoutY="354.0" prefHeight="87.0" prefWidth="140.0" />
+                           </children></Pane>
+                        <ScrollPane layoutX="199.0" layoutY="312.0" prefHeight="334.0" prefWidth="658.0">
                            <content>
-                              <HBox fx:id="ListHbox" prefHeight="389.0" prefWidth="696.0" />
+                              <HBox fx:id="ListHbox" prefHeight="389.0" prefWidth="683.0" />
                            </content>
                         </ScrollPane>
-                        <Button layoutX="11.0" layoutY="250.0" mnemonicParsing="false" onAction="#ListButtonPushed" prefHeight="25.0" prefWidth="70.0" text="Listázás" />
-                        <ComboBox fx:id="OszlopSzuresComboBox" layoutX="12.0" layoutY="286.0" prefHeight="25.0" prefWidth="140.0" promptText="Válassz oszlopot" />
-                        <ListView fx:id="SzuresListView" layoutX="14.0" layoutY="391.0" prefHeight="100.0" prefWidth="140.0" />
-                        <ComboBox fx:id="OszlopRendezesComboBox" layoutX="12.0" layoutY="508.0" prefHeight="25.0" prefWidth="140.0" promptText="Válassz oszlopot" />
-                        <ComboBox fx:id="RendezesComboBox" layoutX="12.0" layoutY="543.0" prefHeight="25.0" prefWidth="68.0" promptText="Rendezés" />
-                        <ListView fx:id="RendezesListView" layoutX="12.0" layoutY="578.0" prefHeight="100.0" prefWidth="140.0" />
-                        <TextField fx:id="OperatorTextField" layoutX="14.0" layoutY="320.0" prefHeight="25.0" prefWidth="40.0" promptText="=" />
-                        <TextField fx:id="ErtekTextField" layoutX="64.0" layoutY="320.0" prefHeight="25.0" prefWidth="90.0" promptText="'Magyar'" />
-                        <Button layoutX="64.0" layoutY="355.0" mnemonicParsing="false" onAction="#SzuresAddButtonPushed" prefHeight="25.0" prefWidth="90.0" text="Hozzáad" />
-                        <TextField fx:id="KapcsolatTextField" disable="true" layoutX="13.0" layoutY="355.0" prefHeight="25.0" prefWidth="41.0" />
-                        <Button layoutX="92.0" layoutY="250.0" mnemonicParsing="false" onAction="#EmptyFieldsButtonPushed" text="Szűrés törlése" />
-                        <Button layoutX="92.0" layoutY="543.0" mnemonicParsing="false" onAction="#RendezesAddButtonPushed" prefHeight="25.0" prefWidth="62.0" text="Hozzáad" />
                      </children>
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab style="-fx-background-color: white; -fx-border-color: grey;" text="SQL Lekerdezes">
+            <Tab id="tab" text="SQL Lekerdezes">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
+                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="906.0" style="-fx-background-image: url('/fxml/5.jpg');" AnchorPane.topAnchor="204.0">
+                           <children>
+                              <Pane layoutX="50.0" layoutY="137.0" prefHeight="305.0" prefWidth="141.0" style="-fx-border-color: black;">
+                                 <children>
+                                    <ComboBox fx:id="OszlopComboBox" layoutX="13.0" layoutY="36.0" onAction="#Oszlop_SelectedIndexChanged" prefHeight="25.0" prefWidth="116.0" promptText="Válassz táblát" />
+                                    <ListView fx:id="OszlopListView" layoutX="16.0" layoutY="82.0" prefHeight="211.0" prefWidth="110.0" />
+                                    <Label layoutX="4.0" layoutY="6.0" prefHeight="17.0" prefWidth="135.0" text="Oszlopnevek lekérdezése" />
+                                 </children>
+                              </Pane>
+                              <Button layoutX="50.0" layoutY="100.0" mnemonicParsing="false" onAction="#ListSQLButtonPushed" text="Lekérdezés" />
+                              <TextField fx:id="SqlQueryTextField" layoutX="50.0" layoutY="61.0" prefHeight="30.0" prefWidth="299.0" />
+                           </children></Pane>
                          
-                        <ScrollPane layoutX="173.0" layoutY="292.0" prefHeight="344.0" prefWidth="700.0">
+                        <ScrollPane layoutX="205.0" layoutY="320.0" prefHeight="326.0" prefWidth="650.0">
                            <content>
                               <HBox fx:id="SqlHbox" prefHeight="340.0" prefWidth="696.0" />
                            </content>
                         </ScrollPane>
-                        <Button layoutX="23.0" layoutY="279.0" mnemonicParsing="false" onAction="#ListSQLButtonPushed" text="Lekérdezés" />
-                        <TextField fx:id="SqlQueryTextField" layoutX="23.0" layoutY="234.0" prefHeight="25.0" prefWidth="300.0" />
-                        <Label layoutX="23.0" layoutY="203.0" text="Adj meg egy SQL utasítást" />
-                        <Pane layoutX="14.0" layoutY="316.0" prefHeight="305.0" prefWidth="141.0" style="-fx-border-color: black;">
-                           <children>
-                              <ComboBox fx:id="OszlopComboBox" layoutX="13.0" layoutY="36.0" onAction="#Oszlop_SelectedIndexChanged" prefHeight="25.0" prefWidth="116.0" promptText="Válassz táblát" />
-                              <ListView fx:id="OszlopListView" layoutX="16.0" layoutY="82.0" prefHeight="211.0" prefWidth="110.0" />
-                              <Label layoutX="4.0" layoutY="6.0" prefHeight="17.0" prefWidth="135.0" text="Oszlopnevek lekérdezése" />
-                           </children>
-                        </Pane>
                         <ImageView fitHeight="270.0" fitWidth="912.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/fxml/2.jpg" />
                            </image>
                         </ImageView>
+                        <Label layoutX="50.0" layoutY="237.0" prefHeight="26.0" prefWidth="139.0" text="Adj meg egy SQL utasítást" />
                      </children>
                   </AnchorPane>
               </content>
