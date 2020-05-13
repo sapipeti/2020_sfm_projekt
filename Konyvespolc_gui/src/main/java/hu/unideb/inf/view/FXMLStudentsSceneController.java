@@ -19,16 +19,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import net.javaguides.hibernate.entity.Konyv;
@@ -45,6 +49,7 @@ public class FXMLStudentsSceneController implements Initializable {
 
     String KonyvOszlop="";
     String aKulcsOszlop="";
+    
     
     @FXML
     private TextField NewSzerzoTextField;
@@ -114,6 +119,9 @@ public class FXMLStudentsSceneController implements Initializable {
     private ComboBox OszlopSzuresComboBox;
     
     @FXML
+    private ComboBox OszlopSzuresComboBox2;
+    
+    @FXML
     private ComboBox OszlopRendezesComboBox;
             
     @FXML
@@ -129,12 +137,108 @@ public class FXMLStudentsSceneController implements Initializable {
     private TextField ErtekTextField;
     
     @FXML
+    private TextField IdTextField;
+    
+    @FXML
+    private TextField ChangeTextField;
+    
+    @FXML
+    ToggleGroup Tabla;
+    
+    @FXML
     private ListView<String> SzuresListView;
     
     @FXML
     private ListView<String> RendezesListView;
-                            
+    
+    @FXML
+    private Button LekeresButton;
+    
+    public boolean lekerdezett = false;
+    
+   
+    @FXML
+    void
+    DeleteRadioButtonEvent(){
+        
+        OszlopSzuresComboBox2.setDisable(true);
+        ChangeTextField.setDisable(true);
+        LekeresButton.setDisable(true);
+    }
+    @FXML
+    void
+    UpdateRadioButtonEvent(){
+        OszlopSzuresComboBox2.setDisable(false);
+        ChangeTextField.setDisable(true);
+         LekeresButton.setDisable(false);
+    }
+    
+    @FXML
+    void
+    LekeresEvent(){
+        RadioButton selectedRadioButton = (RadioButton) Tabla.getSelectedToggle();
+        String toogleGroupValue = selectedRadioButton.getText();
 
+        if(IdTextField.getText().isEmpty() || OszlopSzuresComboBox2.getValue()==null &&toogleGroupValue.equals("Módosítás")){
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Hiányzó értékek");
+            alert.setHeaderText("Nem töltöttél ki minden kötelező mezőt!");
+            alert.setContentText("Nem tudtunk lekérni adatot");
+            alert.showAndWait();
+        }else{
+            if(toogleGroupValue.equals("Módosítás")){
+                ChangeTextField.setDisable(false);
+            }
+            
+            List<Object[]> Eredmeny = new ArrayList<Object[]>();
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT "+OszlopSzuresComboBox2.getValue()+" from "+TablaComboBox.getValue()+" where id="+IdTextField.getText());
+            }
+           
+           ChangeTextField.setText(Eredmeny.toString().substring(1, Eredmeny.toString().length()-1));
+           lekerdezett=true;
+        }
+        
+    }
+    
+    @FXML
+    void
+    VegrehajtEvent(){
+        RadioButton selectedRadioButton = (RadioButton) Tabla.getSelectedToggle();
+        String toogleGroupValue = selectedRadioButton.getText();
+        if(lekerdezett || toogleGroupValue.equals("Törlés")){
+            
+            if(toogleGroupValue.equals("Módosítás")){
+                try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                aDAO.queryChange("UPDATE "+TablaComboBox.getValue()+" SET "+OszlopSzuresComboBox2.getValue()+"="+ChangeTextField.getText()+" where id="+IdTextField.getText());
+                }
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Sikeres frissítés!");
+                alert.setHeaderText("Sikeresen frissült a(z) "+TablaComboBox.getValue()+" tábla "+OszlopSzuresComboBox2.getValue()+" attribútum értéke egy sorban.");
+                alert.setContentText("Az új érték: "+ChangeTextField.getText());
+                alert.showAndWait();
+            }else{
+                try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                aDAO.queryChange("DELETE FROM "+TablaComboBox.getValue()+" where id="+IdTextField.getText());
+                }
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Sikeres sortörlés!");
+                alert.setHeaderText("Sikeresen törölődött a megadott ID-vel rendelkező sor!");
+                alert.setContentText("");
+                alert.showAndWait();
+            }
+            
+            
+            lekerdezett=false;
+        }else{
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Hiányzó értékek");
+            alert.setHeaderText("Előbb le kell kérned az adatot!");
+            alert.setContentText("Nyomnd meg az értékek lekérése gombot!");
+            alert.showAndWait();
+        }
+    }
+            
     @FXML
     void handleSaveButtonPushed() 
     { 
@@ -274,13 +378,33 @@ public class FXMLStudentsSceneController implements Initializable {
                 query=query.replaceAll("\\*",aKulcsOszlop);
             }
         }
-       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+        if(query.toUpperCase().startsWith("SELECT")){
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
             Eredmeny=aDAO.queryKonyv(query);
-       }
-       try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            }
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
             EredmenyFejlec=aDAO.queryKonyvFejlec(query);
-       }
-        System.out.println(query+"-------------------------");
+            }
+        }else{
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+            aDAO.queryChange(query);
+            }
+            if(query.toUpperCase().startsWith("UPDATE")){
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Sikeres frissítés!");
+                alert.setHeaderText("Sikeresen frissítetted a megadott sort!");
+                alert.setContentText("");
+                alert.showAndWait();
+            }else if(query.toUpperCase().startsWith("DELETE")){
+                 Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Sikeres törlés!");
+                alert.setHeaderText("Sikeresen törölted a megadott sort!");
+                alert.setContentText("");
+                alert.showAndWait();
+            }
+        }
+       
+       
        List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
 
        SqlHbox.setPrefWidth(125*EredmenyFejlec.size());
@@ -400,6 +524,7 @@ public class FXMLStudentsSceneController implements Initializable {
         
         
         OszlopSzuresComboBox.getItems().clear();
+        OszlopSzuresComboBox2.getItems().clear();
         OszlopRendezesComboBox.getItems().clear();
         List<String> EredmenyFejlec = new ArrayList<String>();
             EredmenyFejlec = OszlopFormazas(TablaComboBox.getValue());
@@ -408,6 +533,7 @@ public class FXMLStudentsSceneController implements Initializable {
 
              OszlopSzuresComboBox.getItems().add(string);
              OszlopRendezesComboBox.getItems().add(string);
+             OszlopSzuresComboBox2.getItems().add(string);
             }
     }
     
@@ -540,6 +666,9 @@ public class FXMLStudentsSceneController implements Initializable {
         OszlopComboBox.getItems().addAll("Konyv","Akulcs");
         TablaComboBox.getItems().addAll("Konyv","Akulcs");
         RendezesComboBox.getItems().addAll("Csökkenő","Növekvő");
+        
+        
+        
     }
 
     

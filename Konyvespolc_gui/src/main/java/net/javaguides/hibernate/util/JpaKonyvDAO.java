@@ -101,27 +101,31 @@ public class JpaKonyvDAO implements AutoCloseable{
         return lista;
     }
     
+    public void queryChange(String lekerdezes){
+        try{
+            transaction = session.beginTransaction();
+            Query query1 = session.createSQLQuery(lekerdezes);
+                query1.executeUpdate();
+
+
+            transaction.commit();
+        }
+        catch(Exception e){
+            e.printStackTrace(); 
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
     
     public List<Object[]> queryKonyv(String lekerdezes){
         List<Object[]> queryResult = new ArrayList<Object[]>();
         try{
             transaction = session.beginTransaction();
             Query query1 = session.createSQLQuery(lekerdezes);
-            queryResult = (List<Object[]>)query1.list();
+                queryResult = (List<Object[]>)query1.list();
             
-            //SZAROK AZ OSZLOPNEVEK
-            /*System.out.println("--------------------");
-            List<String> lista = new ArrayList<String>();
-            query1.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-            List<Map<String,Object>> aliasToValueMapList=query1.list();
-            for (Map<String, Object> map : aliasToValueMapList) {
-               for (Map.Entry<String, Object> entry : map.entrySet()) {
-                   lista.add(entry.getKey().toString());
-               }
-               break;
-            }*/
 
-            
             transaction.commit();
         }
         catch(Exception e){
