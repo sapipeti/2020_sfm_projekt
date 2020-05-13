@@ -89,8 +89,7 @@ public class FXMLStudentsSceneController implements Initializable {
     
     @FXML
     private ListView<String> KulcsszavakListView;
-     
-    
+         
     @FXML
     private HBox SqlHbox;
     
@@ -107,9 +106,7 @@ public class FXMLStudentsSceneController implements Initializable {
     private TextField SqlQueryTextField;
     
     @FXML
-    void ElolvasvaBox() 
-    {
-    }
+    void ElolvasvaBox() {}
     
     //Lekerdezes ablak
     @FXML
@@ -155,7 +152,6 @@ public class FXMLStudentsSceneController implements Initializable {
     private Button LekeresButton;
     
     public boolean lekerdezett = false;
-    
    
     @FXML
     void
@@ -198,7 +194,6 @@ public class FXMLStudentsSceneController implements Initializable {
            ChangeTextField.setText(Eredmeny.toString().substring(1, Eredmeny.toString().length()-1));
            lekerdezett=true;
         }
-        
     }
     
     @FXML
@@ -227,7 +222,6 @@ public class FXMLStudentsSceneController implements Initializable {
                 alert.setContentText("");
                 alert.showAndWait();
             }
-            
             
             lekerdezett=false;
         }else{
@@ -275,11 +269,9 @@ public class FXMLStudentsSceneController implements Initializable {
             peldany.setID(ID.get(0)+1);
         }
         
-        
         for (int i = 0; i < KulcsszavakListView.getItems().size(); i++) {
             peldany.addKulcsszo(new Kulcsszo(KulcsszavakListView.getItems().get(i)));
         }
-        
         //Adatok feltöltése az adatbázisba.
         try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
             aDAO.saveKonyv(peldany);
@@ -311,7 +303,6 @@ public class FXMLStudentsSceneController implements Initializable {
         alert.showAndWait();
     }
     }
-    
     
     @FXML
     void handleEmptyButtonPushed() 
@@ -356,11 +347,8 @@ public class FXMLStudentsSceneController implements Initializable {
             EredmenyFejlec=OszlopFormazas(OszlopComboBox.getValue());
             for (String string : EredmenyFejlec) {
              OszlopListView.getItems().add(string);
-        }
-           
+        }     
     }
-        
-    
     
     @FXML
     void  ListSQLButtonPushed() 
@@ -403,7 +391,6 @@ public class FXMLStudentsSceneController implements Initializable {
                 alert.showAndWait();
             }
         }
-       
        
        List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
 
@@ -514,15 +501,11 @@ public class FXMLStudentsSceneController implements Initializable {
        for (int i = 0; i < LekerdezesLista.size(); i++) {
                 ListHbox.getChildren().add(LekerdezesLista.get(i));
             }
-    
-        
     } 
     
     @FXML
     void  Tabla_SelectedIndexChanged() 
     {  
-        
-        
         OszlopSzuresComboBox.getItems().clear();
         OszlopSzuresComboBox2.getItems().clear();
         OszlopRendezesComboBox.getItems().clear();
@@ -573,8 +556,6 @@ public class FXMLStudentsSceneController implements Initializable {
             SzuresListView.getItems().add(OszlopSzuresComboBox.getValue()+" "+ OperatorTextField.getText()+" "+ErtekTextField.getText());
             KapcsolatTextField.setDisable(false);
         }
-        
-        
     }
 
     @FXML
@@ -611,8 +592,7 @@ public class FXMLStudentsSceneController implements Initializable {
             }else{
                 KonyvOszlop+=", "+EredmenyFejlec.get(i);
             }
-        }
-            
+        } 
     }
     
     public void aKulcsOszlop(){
@@ -646,7 +626,6 @@ public class FXMLStudentsSceneController implements Initializable {
             }
             return vissza;
     }
-           
    
     /**
      * Initializes the controller class.
@@ -665,12 +644,6 @@ public class FXMLStudentsSceneController implements Initializable {
         SqlHbox.setPrefWidth(300);
         OszlopComboBox.getItems().addAll("Konyv","Akulcs");
         TablaComboBox.getItems().addAll("Konyv","Akulcs");
-        RendezesComboBox.getItems().addAll("Csökkenő","Növekvő");
-        
-        
-        
+        RendezesComboBox.getItems().addAll("Csökkenő","Növekvő");            
     }
-
-    
-    
 }
