@@ -317,7 +317,7 @@
             </Tab>
             <Tab text="Kimutatások">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-image:url('/fxml/6.jpg') ;">
                      <children>
                         <PieChart fx:id="MufajChart" layoutX="19.0" layoutY="60.0" prefHeight="300.0" prefWidth="335.0" />
                         <PieChart fx:id="EvChart" layoutX="362.0" layoutY="60.0" prefHeight="300.0" prefWidth="335.0" />
