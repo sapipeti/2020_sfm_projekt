@@ -19,7 +19,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -50,6 +53,35 @@ public class FXMLStudentsSceneController implements Initializable {
     String KonyvOszlop="";
     String aKulcsOszlop="";
     
+    @FXML
+    private PieChart MufajChart;
+    
+    @FXML
+    private PieChart EvChart;
+
+    @FXML
+    private PieChart KiadoChart;
+
+    @FXML
+    private PieChart NyelvChart;
+
+    @FXML
+    private TextField OldalszamTextField;
+
+    @FXML
+    private TextField KonyvszamTextField;
+
+    @FXML
+    private TextField OsszsulyTextField;
+
+    @FXML
+    private TextField OlvasottTextField;
+
+    @FXML
+    private TextField KedvencSzerzoTextField;
+    
+    @FXML
+    private TextField OlvasottOldalTextField;
     
     @FXML
     private TextField NewSzerzoTextField;
@@ -89,7 +121,8 @@ public class FXMLStudentsSceneController implements Initializable {
     
     @FXML
     private ListView<String> KulcsszavakListView;
-         
+     
+    
     @FXML
     private HBox SqlHbox;
     
@@ -106,7 +139,9 @@ public class FXMLStudentsSceneController implements Initializable {
     private TextField SqlQueryTextField;
     
     @FXML
-    void ElolvasvaBox() {}
+    void ElolvasvaBox() 
+    {
+    }
     
     //Lekerdezes ablak
     @FXML
@@ -152,6 +187,7 @@ public class FXMLStudentsSceneController implements Initializable {
     private Button LekeresButton;
     
     public boolean lekerdezett = false;
+    
    
     @FXML
     void
@@ -194,6 +230,7 @@ public class FXMLStudentsSceneController implements Initializable {
            ChangeTextField.setText(Eredmeny.toString().substring(1, Eredmeny.toString().length()-1));
            lekerdezett=true;
         }
+        
     }
     
     @FXML
@@ -222,6 +259,7 @@ public class FXMLStudentsSceneController implements Initializable {
                 alert.setContentText("");
                 alert.showAndWait();
             }
+            
             
             lekerdezett=false;
         }else{
@@ -269,9 +307,11 @@ public class FXMLStudentsSceneController implements Initializable {
             peldany.setID(ID.get(0)+1);
         }
         
+        
         for (int i = 0; i < KulcsszavakListView.getItems().size(); i++) {
             peldany.addKulcsszo(new Kulcsszo(KulcsszavakListView.getItems().get(i)));
         }
+        
         //Adatok feltöltése az adatbázisba.
         try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
             aDAO.saveKonyv(peldany);
@@ -284,7 +324,6 @@ public class FXMLStudentsSceneController implements Initializable {
         NewSzerzoTextField.setText("");
         NewSulyTextField.setText("");
         MufajokComboBox.setValue(null);
-        KulcsszavakComboBox.setValue(null);
         NewNyelvTextField.setText("");
         NewOldalSzamTextField.setText("");
         KiadasiEvTextField.setText("");
@@ -304,6 +343,7 @@ public class FXMLStudentsSceneController implements Initializable {
     }
     }
     
+    
     @FXML
     void handleEmptyButtonPushed() 
     {  
@@ -312,7 +352,6 @@ public class FXMLStudentsSceneController implements Initializable {
         NewSzerzoTextField.setText("");
         NewSulyTextField.setText("");
         MufajokComboBox.setValue(null);
-        KulcsszavakComboBox.setValue(null);
         NewNyelvTextField.setText("");
         NewOldalSzamTextField.setText("");
         KiadasiEvTextField.setText("");
@@ -347,8 +386,11 @@ public class FXMLStudentsSceneController implements Initializable {
             EredmenyFejlec=OszlopFormazas(OszlopComboBox.getValue());
             for (String string : EredmenyFejlec) {
              OszlopListView.getItems().add(string);
-        }     
+        }
+           
     }
+        
+    
     
     @FXML
     void  ListSQLButtonPushed() 
@@ -391,6 +433,7 @@ public class FXMLStudentsSceneController implements Initializable {
                 alert.showAndWait();
             }
         }
+       
        
        List<ListView<String>> LekerdezesLista = new ArrayList<ListView<String>>();
 
@@ -501,11 +544,15 @@ public class FXMLStudentsSceneController implements Initializable {
        for (int i = 0; i < LekerdezesLista.size(); i++) {
                 ListHbox.getChildren().add(LekerdezesLista.get(i));
             }
+    
+        
     } 
     
     @FXML
     void  Tabla_SelectedIndexChanged() 
     {  
+        
+        
         OszlopSzuresComboBox.getItems().clear();
         OszlopSzuresComboBox2.getItems().clear();
         OszlopRendezesComboBox.getItems().clear();
@@ -556,6 +603,8 @@ public class FXMLStudentsSceneController implements Initializable {
             SzuresListView.getItems().add(OszlopSzuresComboBox.getValue()+" "+ OperatorTextField.getText()+" "+ErtekTextField.getText());
             KapcsolatTextField.setDisable(false);
         }
+        
+        
     }
 
     @FXML
@@ -592,7 +641,8 @@ public class FXMLStudentsSceneController implements Initializable {
             }else{
                 KonyvOszlop+=", "+EredmenyFejlec.get(i);
             }
-        } 
+        }
+            
     }
     
     public void aKulcsOszlop(){
@@ -626,24 +676,292 @@ public class FXMLStudentsSceneController implements Initializable {
             }
             return vissza;
     }
-   
+           
+    @FXML
+    private void UpdateChart(){
+        //Műfaj
+    List<Object[]> Eredmeny = new ArrayList<Object[]>();
+    List<String> Műfaj = new ArrayList<String>();
+    double osszesKonyv=0;
+    int iend=-1;
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT műfaj,count(műfaj) FROM Konyv group by műfaj");
+            }
+            
+           for (Object[] obj : Eredmeny) {
+                Műfaj.add(obj[0].toString()+";"+obj[1].toString());
+            }
+           
+           //Megszámoljuk hány könv van
+           for (int i = 0; i < Műfaj.size(); i++) {
+                
+                iend = Műfaj.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                osszesKonyv+=(Integer.parseInt(Műfaj.get(i).substring(iend+1 ,Műfaj.get(i).length())));
+                }
+                iend=-1;
+            }
+           System.out.println("Összes könyv: "+osszesKonyv);
+           
+           for (String string : Műfaj) {
+               System.out.println(string);
+           }
+           
+            ObservableList<PieChart.Data> MufajChartData = FXCollections.observableArrayList();
+            for (int i = 0; i < Műfaj.size(); i++) {
+                
+                iend = Műfaj.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                MufajChartData.add(new Data(Műfaj.get(i).substring(0 , iend),(Integer.parseInt(Műfaj.get(i).substring(iend+1 ,Műfaj.get(i).length()))/osszesKonyv)*100)); //this will give abc
+                    System.out.println((Double.parseDouble(Műfaj.get(i).substring(iend+1 ,Műfaj.get(i).length()))/osszesKonyv)*100);
+                
+                }
+                iend=-1;
+            }
+            osszesKonyv=0;
+            
+            MufajChart. setData(MufajChartData); 
+            
+             //Setting the title of the Pie chart 
+            MufajChart.setTitle("Könyvek eloszlása műfajok szerint"); 
+            //setting the direction to arrange the data 
+            MufajChart.setClockwise(true); 
+            //Setting the labels of the pie chart visible  
+            MufajChart.setLabelsVisible(false); 
+            //Setting the start angle of the pie chart  
+            MufajChart.setStartAngle(180);    
+            MufajChart.setLabelLineLength(10);
+            
+            MufajChart.setLegendVisible(true);
+            //MufajChart.setLegendSide(Side.LEFT);
+            
+            
+            //----Év----
+            List<String> Ev = new ArrayList<String>();
+             osszesKonyv=0;
+             iend=-1;
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT kiadás_év,count(kiadás_év) FROM Konyv group by kiadás_év");
+            }
+            
+           for (Object[] obj : Eredmeny) {
+                Ev.add(obj[0].toString()+";"+obj[1].toString());
+            }
+           
+           //Megszámoljuk hány könv van
+           for (int i = 0; i < Ev.size(); i++) {
+                
+                iend = Ev.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                osszesKonyv+=(Integer.parseInt(Ev.get(i).substring(iend+1 ,Ev.get(i).length())));
+                }
+                iend=-1;
+            }
+           System.out.println("Összes könyv: "+osszesKonyv);
+           
+           for (String string : Ev) {
+               System.out.println(string);
+           }
+           
+            ObservableList<PieChart.Data> EvChartData = FXCollections.observableArrayList();
+            for (int i = 0; i < Ev.size(); i++) {
+                
+                iend = Ev.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                EvChartData.add(new Data(Ev.get(i).substring(0 , iend),(Integer.parseInt(Ev.get(i).substring(iend+1 ,Ev.get(i).length()))/osszesKonyv)*100)); //this will give abc
+                    System.out.println((Double.parseDouble(Ev.get(i).substring(iend+1 ,Ev.get(i).length()))/osszesKonyv)*100);
+                
+                }
+                iend=-1;
+            }
+            osszesKonyv=0;
+            
+            EvChart. setData(EvChartData); 
+             //Setting the title of the Pie chart 
+            EvChart.setTitle("Könyvek eloszlása kiadás éve szerint"); 
+            //setting the direction to arrange the data 
+            EvChart.setClockwise(true); 
+            //Setting the labels of the pie chart visible  
+            EvChart.setLabelsVisible(false); 
+            //Setting the start angle of the pie chart  
+            EvChart.setStartAngle(180);    
+            EvChart.setLabelLineLength(10);
+            EvChart.setLegendVisible(true);
+            
+            
+            //----Kiadó----
+            List<String> Kiado = new ArrayList<String>();
+             osszesKonyv=0;
+             iend=-1;
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT kiadó,count(kiadó) FROM Konyv group by kiadó");
+            }
+            
+           for (Object[] obj : Eredmeny) {
+                Kiado.add(obj[0].toString()+";"+obj[1].toString());
+            }
+           
+           //Megszámoljuk hány könv van
+           for (int i = 0; i < Kiado.size(); i++) {
+                
+                iend = Kiado.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                osszesKonyv+=(Integer.parseInt(Kiado.get(i).substring(iend+1 ,Kiado.get(i).length())));
+                }
+                iend=-1;
+            }
+           System.out.println("Összes könyv: "+osszesKonyv);
+           
+           for (String string : Kiado) {
+               System.out.println(string);
+           }
+           
+            ObservableList<PieChart.Data> KiadoChartData = FXCollections.observableArrayList();
+            for (int i = 0; i < Kiado.size(); i++) {
+                
+                iend = Kiado.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                KiadoChartData.add(new Data(Kiado.get(i).substring(0 , iend),(Integer.parseInt(Kiado.get(i).substring(iend+1 ,Kiado.get(i).length()))/osszesKonyv)*100)); //this will give abc
+                    System.out.println((Double.parseDouble(Kiado.get(i).substring(iend+1 ,Kiado.get(i).length()))/osszesKonyv)*100);
+                
+                }
+                iend=-1;
+            }
+            osszesKonyv=0;
+            
+            KiadoChart. setData(KiadoChartData); 
+             //Setting the title of the Pie chart 
+            KiadoChart.setTitle("Könyvek eloszlása kiadók szerint"); 
+            //setting the direction to arrange the data 
+            KiadoChart.setClockwise(true); 
+            //Setting the labels of the pie chart visible  
+            KiadoChart.setLabelsVisible(false); 
+            //Setting the start angle of the pie chart  
+            KiadoChart.setStartAngle(180);    
+            KiadoChart.setLabelLineLength(10);
+            KiadoChart.setLegendVisible(true);
+            
+            //----Nyelv----
+            
+            
+            List<String> Nyelv = new ArrayList<String>();
+             osszesKonyv=0;
+             iend=-1;
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT nyelv,count(nyelv) FROM Konyv group by nyelv");
+            }
+            
+           for (Object[] obj : Eredmeny) {
+                Nyelv.add(obj[0].toString()+";"+obj[1].toString());
+            }
+           
+           //Megszámoljuk hány könv van
+           for (int i = 0; i < Nyelv.size(); i++) {
+                
+                iend = Nyelv.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                osszesKonyv+=(Integer.parseInt(Nyelv.get(i).substring(iend+1 ,Nyelv.get(i).length())));
+                }
+                iend=-1;
+            }
+           System.out.println("Összes könyv: "+osszesKonyv);
+           
+           for (String string : Nyelv) {
+               System.out.println(string);
+           }
+           
+            ObservableList<PieChart.Data> NyelvChartData = FXCollections.observableArrayList();
+            for (int i = 0; i < Nyelv.size(); i++) {
+                
+                iend = Nyelv.get(i).indexOf(";");
+                if (iend != -1) 
+                {
+                NyelvChartData.add(new Data(Nyelv.get(i).substring(0 , iend),(Integer.parseInt(Nyelv.get(i).substring(iend+1 ,Nyelv.get(i).length()))/osszesKonyv)*100)); //this will give abc
+                    System.out.println((Double.parseDouble(Nyelv.get(i).substring(iend+1 ,Nyelv.get(i).length()))/osszesKonyv)*100);
+                
+                }
+                iend=-1;
+            }
+            osszesKonyv=0;
+            
+            NyelvChart. setData(NyelvChartData); 
+             //Setting the title of the Pie chart 
+            NyelvChart.setTitle("Könyvek eloszlása nyelvek szerint"); 
+            //setting the direction to arrange the data 
+            NyelvChart.setClockwise(true); 
+            //Setting the labels of the pie chart visible  
+            NyelvChart.setLabelsVisible(false); 
+            //Setting the start angle of the pie chart  
+            NyelvChart.setStartAngle(180);    
+            NyelvChart.setLabelLineLength(10);
+            NyelvChart.setLegendVisible(true);
+            
+            
+            //TextField-ek
+            
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT sum(oldalszám) FROM Konyv");
+            }
+            OldalszamTextField.setText((Eredmeny.toString().substring(1, Eredmeny.toString().length()-1)));
+
+             try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT count(*) FROM Konyv");
+            }
+            KonyvszamTextField.setText((Eredmeny.toString().substring(1, Eredmeny.toString().length()-1)));
+            
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT sum(súly) FROM Konyv");
+            }
+            OsszsulyTextField.setText((Eredmeny.toString().substring(1, Eredmeny.toString().length()-1))+" gr");
+
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT sum(oldalszám) FROM Konyv where elolvasva=true");
+            }
+            OlvasottOldalTextField.setText((Eredmeny.toString().substring(1, Eredmeny.toString().length()-1)));
+            
+            try (JpaKonyvDAO aDAO =  new JpaKonyvDAO()) {
+                Eredmeny=aDAO.queryKonyv("SELECT count(*) FROM Konyv where elolvasva=true");
+            }
+            OlvasottTextField.setText((Eredmeny.toString().substring(1, Eredmeny.toString().length()-1)));
+            
+            
+            
+    }
+    @FXML
+    void handleUpdteButtonPushed(){
+         UpdateChart(); 
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        KulcsszavakComboBox.getItems().addAll("Háborús","Western","Vámpír","Időutazás","Tenger","Óceán","Űr","Barlang","Kincs","Kalóz","Őskor","Ókor","Középkor","Újkor","Modern kor","Európa","Észak-Amerika","Dél-Amerika","Ázsia","Afrika","Ausztália","Anktartisz","Képzeletbeli hely");
+        KulcsszavakComboBox.getItems().addAll("Háborús","Western","Vámpír","Börtön","Iskola","Természetfeletti","Időutazás","Tenger","Óceán","Űr","Barlang","Kincs","Kalóz","Őskor","Ókor","Középkor","Újkor","Modern kor","Európa","Észak-Amerika","Dél-Amerika","Ázsia","Afrika","Ausztália","Anktartisz","Képzeletbeli hely");
         MufajokComboBox.getItems().addAll("Család és szülők","Életmód, egészség","Életrajzok, visszaemlékezések" ,
                                             "Ezotéria" ,"Gasztronómia" ,"Gyermek és ifjúsági" ,"Hangoskönyv" ,"Hobbi, szabadidő", 
                                             "Irodalom" ,"Képregény" ,"Kert, ház, otthon" ,"Lexikon, enciklopédia" ,"Művészet, építészet" ,
                                             "Napjaink, bulvár, politika" ,"Nyelvkönyv, szótár" ,"Pénz, gazdaság, üzleti élet" ,"Sport, természetjárás" ,
                                             "Számítástechnika, internet" ,"Tankönyvek, segédkönyvek" ,"Társ. tudományok" ,"Térkép" ,
-                                            "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia","Sci-Fi, Fantasy");
+                                            "Történelem" ,"Tudomány és Természet" ,"Utazás" ,"Vallás, mitológia","Sci-Fi, Fantasy","Horror");
        KonyvOszlop();
        aKulcsOszlop();
         SqlHbox.setPrefWidth(300);
         OszlopComboBox.getItems().addAll("Konyv","Akulcs");
         TablaComboBox.getItems().addAll("Konyv","Akulcs");
-        RendezesComboBox.getItems().addAll("Csökkenő","Növekvő");            
+        RendezesComboBox.getItems().addAll("Csökkenő","Növekvő");
+
+        UpdateChart();    
+            
     }
+
+    
+    
 }
